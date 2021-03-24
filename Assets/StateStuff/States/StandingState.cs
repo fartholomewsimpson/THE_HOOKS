@@ -8,8 +8,6 @@ namespace StateStuff.States
 
         public override State Update(Rigidbody2D rigidbody)
         {
-            rigidbody.velocity = new Vector2(0, rigidbody.velocity.y);
-
             if (Input.GetKey(KeyCode.A))
             {
                 return new WalkingState();
@@ -18,7 +16,7 @@ namespace StateStuff.States
             {
                 return new WalkingState();
             }
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 return new JumpingState();
             }

@@ -23,9 +23,10 @@ namespace StateStuff
 
         void OnCollisionEnter2D(Collision2D collision)
         {
-            var listener = currentState as ICollisionListener;
-            if (listener != null)
-                listener.HandleCollision(collision);
+            // var listener = currentState as ICollisionListener;
+            // if (listener != null)
+            //     listener.HandleCollision(collision);
+            currentState.HandleCollision(collision);
         }
     }
 }

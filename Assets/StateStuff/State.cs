@@ -4,12 +4,11 @@ namespace StateStuff
 {
     public abstract class State
     {
-        public enum StateName { STANDING, WALKING, JUMPING }
         public abstract State Update(Rigidbody2D rigidbody);
-
-        protected StateName name;
+        public virtual void HandleCollision(Collision2D collision) {}
         public StateName Name { get { return name; } }
         public string DisplayName { get { return name.ToString(); } }
+        protected StateName name;
 
         public State(StateName stateName)
         {

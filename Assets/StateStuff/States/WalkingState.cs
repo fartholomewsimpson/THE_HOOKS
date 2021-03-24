@@ -17,7 +17,7 @@ namespace StateStuff.States
         public override State Update(Rigidbody2D rigidbody)
         {
             moveHandler.Update(rigidbody);
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 return new JumpingState();
             }
@@ -26,6 +26,7 @@ namespace StateStuff.States
             {
                 return new StandingState();
             }
+
             return this;
         }
     }
