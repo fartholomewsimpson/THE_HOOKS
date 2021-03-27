@@ -6,13 +6,12 @@ namespace StateStuff
     {
         public abstract State Update(Rigidbody2D rigidbody);
         public virtual void HandleCollision(Collision2D collision) {}
-        public StateName Name { get { return name; } }
-        public string DisplayName { get { return name.ToString(); } }
-        protected StateName name;
+        public StateName Name { get; private set; }
+        public string DisplayName { get { return Name.ToString(); } }
 
         public State(StateName stateName)
         {
-            this.name = stateName;
+            Name = stateName;
         }
     }
 }

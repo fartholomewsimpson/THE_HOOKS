@@ -7,9 +7,9 @@ namespace StateStuff.States
     {
         float moveIncrement = .1f;
         float maxMoveSpeed = 5;
-        float jumpSpeed = 6;
+        float jumpSpeed = 8;
         int jumpAmount = 0;
-        int maxJumpAmount = 100;
+        int maxJumpAmount = 50;
         bool grounded = false;
         MoveHandler moveHandler;
 
@@ -21,6 +21,10 @@ namespace StateStuff.States
         public override State Update(Rigidbody2D rigidbody)
         {
             moveHandler.Update(rigidbody);
+            if (Input.GetKeyUp(KeyCode.Space))
+            {
+                jumpAmount = maxJumpAmount;
+            }
             if (grounded)
             {
                 if (rigidbody.velocity.x != 0)
@@ -32,11 +36,6 @@ namespace StateStuff.States
                 grounded = false;
                 rigidbody.velocity = new Vector2(rigidbody.velocity.x, jumpSpeed);
                 jumpAmount++;
-            }
-
-            if (Input.GetKeyUp(KeyCode.Space))
-            {
-                jumpAmount = maxJumpAmount;
             }
 
             return this;
