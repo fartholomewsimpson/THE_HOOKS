@@ -5,9 +5,9 @@ namespace StateStuff.States
 {
     public class JumpingState : State, ICollisionListener
     {
-        float moveIncrement = .1f;
-        float maxMoveSpeed = 5;
-        float jumpSpeed = 8;
+        float moveIncrement = .2f;
+        float maxMoveSpeed = 25;
+        float jumpSpeed = 15;
         int jumpAmount = 0;
         int maxJumpAmount = 50;
         bool grounded = false;

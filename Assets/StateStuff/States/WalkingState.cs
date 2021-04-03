@@ -5,8 +5,8 @@ namespace StateStuff.States
 {
     public class WalkingState : State
     {
-        float increment = .1f;
-        float maxSpeed = 5;
+        float increment = .2f;
+        float maxSpeed = 25;
         MoveHandler moveHandler;
 
         public WalkingState() : base(StateName.WALKING)
