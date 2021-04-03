@@ -6,7 +6,7 @@ namespace StateStuff
     [RequireComponent(typeof(Text))]
     public class DisplayStateName : MonoBehaviour
     {
-        public StateMachine stateMachine;
+        public ControlHandler stateMachine;
 
         private Text display;
 

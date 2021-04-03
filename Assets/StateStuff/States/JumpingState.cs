@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace StateStuff.States
 {
-    public class JumpingState : State, ICollisionListener
+    public class JumpingState : ControlState, ICollisionListener
     {
         float moveIncrement = .2f;
         float maxMoveSpeed = 25;
@@ -18,7 +18,7 @@ namespace StateStuff.States
             moveHandler = new MoveHandler(moveIncrement, maxMoveSpeed);
         }
 
-        public override State Update(Rigidbody2D rigidbody)
+        public override ControlState Update(Rigidbody2D rigidbody)
         {
             moveHandler.Update(rigidbody);
             if (Input.GetKeyUp(KeyCode.Space))

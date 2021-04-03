@@ -3,16 +3,16 @@ using StateStuff.States;
 
 namespace StateStuff
 {
-    public class StateMachine : MonoBehaviour
+    public class ControlHandler : MonoBehaviour
     {
         new Rigidbody2D rigidbody;
-        State currentState;
+        ControlState currentState;
 
-        // TODO: Move these if possible?
+        // TODO: Move these
         Animator animator;
         SpriteRenderer spriteRenderer;
 
-        public State CurrentState { get { return currentState; } }
+        public ControlState CurrentState { get { return currentState; } }
 
         void Start()
         {
@@ -26,6 +26,8 @@ namespace StateStuff
         void FixedUpdate()
         {
             currentState = currentState.Update(rigidbody);
+
+            // TODO: Move this to a different animation based component
             animator.SetFloat("Velocity", Mathf.Abs(rigidbody.velocity.x));
             if (rigidbody.velocity.x > 0)
                 spriteRenderer.flipX = false;

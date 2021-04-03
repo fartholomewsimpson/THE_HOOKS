@@ -2,11 +2,11 @@
 
 namespace StateStuff.States
 {
-    public class StandingState : State
+    public class StandingState : ControlState
     {
         public StandingState() : base(StateName.STANDING) {}
 
-        public override State Update(Rigidbody2D rigidbody)
+        public override ControlState Update(Rigidbody2D rigidbody)
         {
             if (Input.GetKey(KeyCode.A))
             {

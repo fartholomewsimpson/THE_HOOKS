@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace StateStuff.States
 {
-    public class WalkingState : State
+    public class WalkingState : ControlState
     {
         float increment = .2f;
         float maxSpeed = 25;
@@ -14,7 +14,7 @@ namespace StateStuff.States
             moveHandler = new MoveHandler(increment, maxSpeed);
         }
 
-        public override State Update(Rigidbody2D rigidbody)
+        public override ControlState Update(Rigidbody2D rigidbody)
         {
             moveHandler.Update(rigidbody);
             if (Input.GetKeyDown(KeyCode.Space))
