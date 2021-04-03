@@ -13,7 +13,6 @@ namespace StateStuff.Utils
             MaxSpeed = maxSpeed;
         }
 
-        // TODO: Why does rigidbody.velocity.x slow on collision with the ground? How to fix?
         public void Update(Rigidbody2D rigidbody)
         {
             if (Input.GetKey(KeyCode.A))
