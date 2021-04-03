@@ -16,7 +16,7 @@ namespace StateStuff
             currentState = new StandingState();
         }
 
-        void Update()
+        void FixedUpdate()
         {
             currentState = currentState.Update(rigidbody);
         }
