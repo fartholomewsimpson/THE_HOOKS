@@ -7,7 +7,8 @@ namespace StateStuff
     /// </summary>
     public abstract class ControlState
     {
-        public abstract ControlState Update(Rigidbody2D rigidbody);
+        public abstract ControlState Update(Vector2 velocity);
+        public virtual void FixedUpdate(Rigidbody2D rigidbody) {}
         public virtual void HandleCollision(Collision2D collision) {}
         public StateName Name { get; private set; }
         public string DisplayName { get { return Name.ToString(); } }

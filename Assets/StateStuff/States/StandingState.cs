@@ -6,7 +6,7 @@ namespace StateStuff.States
     {
         public StandingState() : base(StateName.STANDING) {}
 
-        public override ControlState Update(Rigidbody2D rigidbody)
+        public override ControlState Update(Vector2 velocity)
         {
             if (Input.GetKey(KeyCode.A))
             {

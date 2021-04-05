@@ -8,7 +8,6 @@ namespace StateStuff
         new Rigidbody2D rigidbody;
         ControlState currentState;
 
-        // TODO: Move these
         Animator animator;
         SpriteRenderer spriteRenderer;
 
@@ -23,13 +22,19 @@ namespace StateStuff
             spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
+        void Update()
+        {
+            currentState = currentState.Update(rigidbody.velocity);
+        }
+
         void FixedUpdate()
         {
-            currentState = currentState.Update(rigidbody);
+            currentState.FixedUpdate(rigidbody);
 
-            // TODO: Move this to a different animation based component
-            animator.SetFloat("Velocity", Mathf.Abs(rigidbody.velocity.x));
-            if (rigidbody.velocity.x > 0)
+            animator.SetFloat("XVelocity", Mathf.Abs(rigidbody.velocity.x));
+            animator.SetFloat("YVelocity", rigidbody.velocity.y);
+
+            if (rigidbody.velocity.x >= 0)
                 spriteRenderer.flipX = false;
             if (rigidbody.velocity.x < 0)
                 spriteRenderer.flipX = true;

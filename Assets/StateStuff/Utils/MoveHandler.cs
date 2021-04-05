@@ -4,29 +4,31 @@ namespace StateStuff.Utils
 {
     public class MoveHandler
     {
-        public float Increment { get; private set; }
-        public float MaxSpeed { get; private set; }
+        public float Increment { get; private set; } = 4;
 
-        public MoveHandler(float increment, float maxSpeed)
+        float inputDirection;
+        float speed;
+
+        public MoveHandler() {}
+
+        public MoveHandler(float increment)
         {
             Increment = increment;
-            MaxSpeed = maxSpeed;
         }
 
-        public void Update(Rigidbody2D rigidbody)
+        public void Update(Vector2 velocity)
         {
             if (Input.GetKey(KeyCode.A))
-            {
-                rigidbody.velocity = new Vector2(
-                    Mathf.Max((rigidbody.velocity.x - Increment), -MaxSpeed),
-                    rigidbody.velocity.y);
-            }
+                inputDirection = -1;
             if (Input.GetKey(KeyCode.D))
-            {
-                rigidbody.velocity = new Vector2(
-                    Mathf.Min((rigidbody.velocity.x + Increment), MaxSpeed),
-                    rigidbody.velocity.y);
-            }
+                inputDirection = 1;
+            if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+                inputDirection = 0;
+        }
+
+        public void FixedUpdate(Rigidbody2D rigidbody)
+        {
+            rigidbody.AddForce(new Vector2(inputDirection * Increment * rigidbody.drag, 0));
         }
     }
 }
