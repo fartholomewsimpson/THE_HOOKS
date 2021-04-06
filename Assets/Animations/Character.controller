@@ -8,12 +8,12 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 3
-    m_ConditionEvent: XVelocity
-    m_EventTreshold: -0.1
   - m_ConditionMode: 4
     m_ConditionEvent: XVelocity
     m_EventTreshold: 0.1
+  - m_ConditionMode: 3
+    m_ConditionEvent: YVelocity
+    m_EventTreshold: -0.1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1394975019364249806}
   m_Solo: 0
@@ -145,9 +145,6 @@ AnimatorStateTransition:
   - m_ConditionMode: 3
     m_ConditionEvent: XVelocity
     m_EventTreshold: 0.1
-  - m_ConditionMode: 4
-    m_ConditionEvent: XVelocity
-    m_EventTreshold: -0.1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -4714476054496285306}
   m_Solo: 0
@@ -172,7 +169,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 4
     m_ConditionEvent: YVelocity
-    m_EventTreshold: 0.1
+    m_EventTreshold: -0.1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -3700184218597160255}
   m_Solo: 0
@@ -204,10 +201,10 @@ AnimatorStateMachine:
     m_Position: {x: 200, y: 360, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1683679268390852189}
-    m_Position: {x: 540, y: 170, z: 0}
+    m_Position: {x: 540, y: 210, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3700184218597160255}
-    m_Position: {x: 540, y: 260, z: 0}
+    m_Position: {x: 540, y: 330, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -260,9 +257,6 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 3
-    m_ConditionEvent: XVelocity
-    m_EventTreshold: -0.1
   - m_ConditionMode: 4
     m_ConditionEvent: XVelocity
     m_EventTreshold: 0.1
@@ -346,8 +340,8 @@ AnimatorStateTransition:
   - m_ConditionMode: 3
     m_ConditionEvent: XVelocity
     m_EventTreshold: 0.1
-  - m_ConditionMode: 4
-    m_ConditionEvent: XVelocity
+  - m_ConditionMode: 3
+    m_ConditionEvent: YVelocity
     m_EventTreshold: -0.1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -4714476054496285306}
