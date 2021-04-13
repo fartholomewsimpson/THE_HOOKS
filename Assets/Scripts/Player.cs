@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Controller))]
 public class Player : MonoBehaviour
 {
-    public float gravity = 1;
+    public float gravity = .5f;
 
     Vector2 velocity;
 
@@ -16,8 +16,8 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        velocity.y = (velocity.y - gravity) * Time.deltaTime;
+        velocity.y -= gravity;
 
-        controller.Move(velocity);
+        controller.Move(velocity * Time.deltaTime);
     }
 }

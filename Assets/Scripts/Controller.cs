@@ -14,7 +14,7 @@ public class Controller : MonoBehaviour
     public void Move(Vector2 velocity)
     {
         CalculateCorners(); // TODO: Where should this even go?
-        DetectVerticalCollisions();
+        DetectVerticalCollisions(velocity);
         transform.Translate(velocity);
     }
 
@@ -34,13 +34,18 @@ public class Controller : MonoBehaviour
         bottomRight = new Vector2(bounds.max.x, bounds.min.y);
     }
 
-    void DetectVerticalCollisions()
+    void DetectVerticalCollisions(Vector2 velocity)
     {
         var spacing = (bottomRight.x - bottomLeft.x) / (rayCount - 1);
         for (int i = 0; i < rayCount; i++)
         {
             var start = new Vector2(bounds.min.x + (spacing * i), bounds.min.y);
-            Debug.DrawRay(start, Vector2.down, Color.red);
+            var direction = Vector2.up * Mathf.Sign(velocity.y);
+            var distance = Mathf.Abs(velocity.y) + paddingWidth;
+            Debug.DrawRay(start, direction * distance, Color.red);
+            var hit = Physics2D.Raycast(start, direction, distance);
+            if (hit)
+                Debug.Log($"Hit: {hit}");
         }
     }
 }
