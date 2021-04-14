@@ -3,21 +3,18 @@ using UnityEngine;
 [RequireComponent(typeof(Controller))]
 public class Player : MonoBehaviour
 {
-    public float gravity = .5f;
+    public float gravity = 1;
 
-    Vector2 velocity;
+    [SerializeField] Vector2 velocity;
 
     Controller controller;
 
-    void Start()
-    {
+    void Start() {
         controller = GetComponent<Controller>();
     }
 
-    void Update()
-    {
-        velocity.y -= gravity;
-
-        controller.Move(velocity * Time.deltaTime);
+    void FixedUpdate() {
+        velocity.y -= gravity * Time.deltaTime;
+        velocity = controller.Move(velocity);
     }
 }
