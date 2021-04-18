@@ -19,7 +19,7 @@ public class Controller : MonoBehaviour
 
     public Vector2 Move(Vector2 velocity) {
         CalculateCorners(); // TODO: Where should this even go?
-        DetectVerticalCollisions(ref velocity); // TODO: Do this without a ref
+        DetectVerticalCollisions(ref velocity);
         transform.Translate(velocity);
         return velocity;
     }
@@ -41,6 +41,21 @@ public class Controller : MonoBehaviour
         Debug.DrawLine(topRight, bottomRight);
         Debug.DrawLine(bottomRight, bottomLeft);
         Debug.DrawLine(bottomLeft, topLeft);
+    }
+
+    void DetectHorizontalCollisions(ref Vector2 velocity) {
+        var sign = Mathf.Sign(velocity.x);
+        var pair = sign > 0
+            ? new CornerPair { start = topRight, end = bottomRight }
+            : new CornerPair { start = topLeft, end = bottomLeft };
+        var spacing = (pair.end.x - pair.start.x) / (rayCount - 1);
+        var direction = Vector2.right * sign;
+        var distance = Mathf.Abs(velocity.x) + paddingWidth;
+
+        for (int i = 0; i < rayCount; i++) {
+            var origin = new Vector2(pair.start.x, pair.start.y + (spacing * i));
+            Debug.DrawRay(origin, direction * distance, Color.red);
+        }
     }
 
     void DetectVerticalCollisions(ref Vector2 velocity) {
