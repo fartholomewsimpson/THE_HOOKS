@@ -19,7 +19,10 @@ public class Controller : MonoBehaviour
 
     public Vector2 Move(Vector2 velocity) {
         CalculateCorners(); // TODO: Where should this even go?
-        DetectVerticalCollisions(ref velocity);
+        if (Mathf.Abs(velocity.y) > 0)
+            DetectVerticalCollisions(ref velocity);
+        if (Mathf.Abs(velocity.x) > 0)
+            DetectHorizontalCollisions(ref velocity);
         transform.Translate(velocity);
         return velocity;
     }
@@ -46,15 +49,22 @@ public class Controller : MonoBehaviour
     void DetectHorizontalCollisions(ref Vector2 velocity) {
         var sign = Mathf.Sign(velocity.x);
         var pair = sign > 0
-            ? new CornerPair { start = topRight, end = bottomRight }
-            : new CornerPair { start = topLeft, end = bottomLeft };
-        var spacing = (pair.end.x - pair.start.x) / (rayCount - 1);
+            ? new CornerPair { start = bottomRight, end = topRight }
+            : new CornerPair { start = bottomLeft, end = topLeft };
+        var spacing = (pair.end.y - pair.start.y) / (rayCount - 1);
         var direction = Vector2.right * sign;
         var distance = Mathf.Abs(velocity.x) + paddingWidth;
 
         for (int i = 0; i < rayCount; i++) {
             var origin = new Vector2(pair.start.x, pair.start.y + (spacing * i));
             Debug.DrawRay(origin, direction * distance, Color.red);
+
+            var hit = Physics2D.Raycast(origin, direction, distance, collisionMask);
+            if (hit) {
+                velocity.x = (hit.distance - paddingWidth) * sign;
+                Debug.DrawRay(origin, direction * distance, Color.blue);
+                distance = hit.distance;
+            }
         }
     }
 
@@ -74,7 +84,7 @@ public class Controller : MonoBehaviour
             var hit = Physics2D.Raycast(origin, direction, distance, collisionMask);
             if (hit) {
                 velocity.y = (hit.distance - paddingWidth) * sign;
-                Debug.DrawRay(origin, velocity, Color.blue);
+                Debug.DrawRay(origin, direction * distance, Color.blue);
                 distance = hit.distance;
             }
         }
