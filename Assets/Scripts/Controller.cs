@@ -18,7 +18,7 @@ public class Controller : MonoBehaviour
     }
 
     public Vector2 Move(Vector2 velocity) {
-        CalculateCorners(); // TODO: Where should this even go?
+        CalculateCorners();
         if (Mathf.Abs(velocity.y) > 0)
             DetectVerticalCollisions(ref velocity);
         if (Mathf.Abs(velocity.x) > 0)
