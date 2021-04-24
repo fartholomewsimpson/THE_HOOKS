@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
@@ -6,6 +7,8 @@ public class Controller : MonoBehaviour
     [Range(2, 10)]
     public int rayCount = 4;
     public LayerMask collisionMask;
+
+    public event Action onVerticalCollision, onHorizontalCollision;
 
     float paddingWidth = .05f;
     new BoxCollider2D collider;
@@ -18,7 +21,7 @@ public class Controller : MonoBehaviour
     }
 
     public Vector2 Move(Vector2 velocity) {
-        CalculateCorners(); // TODO: Where should this even go?
+        CalculateCorners();
         if (Mathf.Abs(velocity.y) > 0)
             DetectVerticalCollisions(ref velocity);
         if (Mathf.Abs(velocity.x) > 0)
@@ -64,6 +67,8 @@ public class Controller : MonoBehaviour
                 velocity.x = (hit.distance - paddingWidth) * sign;
                 Debug.DrawRay(origin, direction * distance, Color.blue);
                 distance = hit.distance;
+                if (onHorizontalCollision != null)
+                    onHorizontalCollision();
             }
         }
     }
@@ -86,6 +91,8 @@ public class Controller : MonoBehaviour
                 velocity.y = (hit.distance - paddingWidth) * sign;
                 Debug.DrawRay(origin, direction * distance, Color.blue);
                 distance = hit.distance;
+                if (onVerticalCollision != null)
+                    onVerticalCollision();
             }
         }
     }

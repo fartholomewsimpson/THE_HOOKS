@@ -270,6 +270,7 @@ MonoBehaviour:
   gravity: 1
   jumpSpeed: 0.3
   moveSpeed: 0.3
+  moveIncrement: 0.05
   velocity: {x: 0, y: 0}
 --- !u!4 &601593564
 Transform:
@@ -323,7 +324,7 @@ GameObject:
   - component: {fileID: 1193998151}
   - component: {fileID: 1193998150}
   m_Layer: 0
-  m_Name: Grid
+  m_Name: TerrainGrid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -432,7 +433,7 @@ GameObject:
   - component: {fileID: 1568689430}
   - component: {fileID: 1568689427}
   m_Layer: 6
-  m_Name: Collidable
+  m_Name: CollidableTerrain
   m_TagString: collidable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -523,6 +524,40 @@ CompositeCollider2D:
       - X: -49843772
         Y: -10000100
       - X: -40078104
+        Y: -10000100
+    - - X: 29921933
+        Y: -10000085
+      - X: 30000085
+        Y: -9921932
+      - X: 30000100
+        Y: -9921895
+      - X: 30000100
+        Y: 41
+      - X: 30000041
+        Y: 100
+      - X: 9999959
+        Y: 100
+      - X: 9999900
+        Y: 41
+      - X: 9999900
+        Y: -9843770
+      - X: 9999915
+        Y: -9843807
+      - X: 10156008
+        Y: -9999900
+      - X: 19922118
+        Y: -9999900
+      - X: 20000085
+        Y: -9921932
+      - X: 20000100
+        Y: -9921895
+      - X: 20000100
+        Y: -9843992
+      - X: 20156193
+        Y: -10000085
+      - X: 20156230
+        Y: -10000100
+      - X: 29921896
         Y: -10000100
     - - X: -100000000
         Y: -39921876
@@ -740,6 +775,16 @@ CompositeCollider2D:
       - {x: -5.00001, y: -0.0000252}
       - {x: -5.000001, y: -0.9843883}
       - {x: -4.9843664, y: -1.00001}
+    - - {x: 2.992179, y: -1.00001}
+      - {x: 3.00001, y: -0.99217874}
+      - {x: 2.9999747, y: 0.00001}
+      - {x: 0.99999, y: -0.0000252}
+      - {x: 0.9999991, y: -0.9843883}
+      - {x: 1.0156116, y: -0.99999}
+      - {x: 1.9922194, y: -0.9999824}
+      - {x: 2.00001, y: -0.99217874}
+      - {x: 2.0000715, y: -0.984461}
+      - {x: 2.0156338, y: -1.00001}
     - - {x: -10.007824, y: -4}
       - {x: -10, y: -3.9921768}
       - {x: -9.999939, y: -3.9844368}
@@ -1155,15 +1200,35 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: 1, y: -1, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 0
+      m_TileSpriteIndex: 0
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 2, y: -1, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 0
+      m_TileSpriteIndex: 0
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 26
+  - m_RefCount: 28
     m_Data: {fileID: 11400000, guid: 041e2e8fd1d0ab54f9f391c141e1f40b, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 26
+  - m_RefCount: 28
     m_Data: {fileID: 21300006, guid: 94b9aae5592f1fa48a1f78e8ed6f50f7, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 26
+  - m_RefCount: 28
     m_Data:
       e00: 1
       e01: 0
@@ -1182,7 +1247,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 26
+  - m_RefCount: 28
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
