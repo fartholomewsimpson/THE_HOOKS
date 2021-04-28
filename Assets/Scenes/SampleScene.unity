@@ -269,8 +269,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravity: 1
   jumpSpeed: 0.3
+  maxJumpAmount: 10
   moveSpeed: 0.3
-  moveIncrement: 0.05
+  moveIncrement: 0.01
   velocity: {x: 0, y: 0}
 --- !u!4 &601593564
 Transform:
