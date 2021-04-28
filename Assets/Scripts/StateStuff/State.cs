@@ -7,8 +7,7 @@ namespace StateStuff
         public StateName Name { get; private set; }
         public string StateName { get { return Name.ToString(); } }
 
-        public State(StateMachine stateMachine, StateName name)
-        {
+        public State(StateMachine stateMachine, StateName name) {
             this.stateMachine = stateMachine;
             this.Name = name;
         }
