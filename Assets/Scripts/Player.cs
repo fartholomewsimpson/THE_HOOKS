@@ -1,3 +1,4 @@
+using StateStuff;
 using UnityEngine;
 
 [RequireComponent(typeof(Controller))]
@@ -5,11 +6,14 @@ public class Player : MonoBehaviour
 {
     public float gravity = 1;
     public float jumpSpeed = .3f;
+    public int maxJumpAmount = 10;
     public float moveSpeed = .3f;
     public float moveIncrement = .01f;
 
     [SerializeField] Vector2 velocity;
     bool canJump;
+    bool jumping;
+    int jumpCounter;
 
     Controller controller;
 
@@ -20,7 +24,8 @@ public class Player : MonoBehaviour
 
     void Update() {
         if (Input.GetKeyDown(KeyCode.Space) && canJump) {
-            velocity.y = jumpSpeed;
+            jumping = true;
+            canJump = false;
         }
     }
 
@@ -38,11 +43,27 @@ public class Player : MonoBehaviour
                 velocity.x += Mathf.Sign(velocity.x) * -moveIncrement;
         }
 
+        if (jumping && Input.GetKey(KeyCode.Space)) {
+            velocity.y = jumpSpeed;
+            jumpCounter++;
+            if (jumpCounter >= maxJumpAmount) {
+                jumping = false;
+                jumpCounter = 0;
+            }
+        } else {
+            jumping = false;
+            jumpCounter = 0;
+        }
+
         velocity = controller.Move(velocity);
     }
 
-    void handleVerticalCollision()
+    void handleVerticalCollision(RaycastHit2D hit)
     {
-        canJump = velocity.y < 0;
+        if (hit.point.y > transform.position.y) {
+            jumping = false;
+        } else {
+            canJump = true;
+        }
     }
 }
