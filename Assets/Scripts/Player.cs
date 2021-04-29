@@ -4,16 +4,16 @@ using UnityEngine;
 [RequireComponent(typeof(Controller))]
 public class Player : MonoBehaviour
 {
-    public float gravity = 1;
-    public float jumpSpeed = .3f;
-    public int maxJumpAmount = 10;
-    public float moveSpeed = .3f;
-    public float moveIncrement = .01f;
+    public float gravity;
+    public float jumpSpeed;
+    public int maxJumpAmount;
+    public float moveSpeed;
+    public float moveIncrement;
 
     [SerializeField] Vector2 velocity;
-    bool canJump;
-    bool jumping;
-    int jumpCounter;
+    [SerializeField] bool canJump;
+    [SerializeField] bool jumping;
+    [SerializeField] int jumpCounter;
 
     Controller controller;
 
@@ -48,11 +48,9 @@ public class Player : MonoBehaviour
             jumpCounter++;
             if (jumpCounter >= maxJumpAmount) {
                 jumping = false;
-                jumpCounter = 0;
             }
         } else {
             jumping = false;
-            jumpCounter = 0;
         }
 
         velocity = controller.Move(velocity);
@@ -64,6 +62,7 @@ public class Player : MonoBehaviour
             jumping = false;
         } else {
             canJump = true;
+            jumpCounter = 0;
         }
     }
 }
