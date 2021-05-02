@@ -19,10 +19,10 @@ public class Animate : MonoBehaviour
         animator.SetFloat("XSpeed", Mathf.Abs(playerData.velocity.x));
         animator.SetFloat("YVelocity", playerData.velocity.y);
 
-        if (playerData.velocity.x > 0) {
+        if (playerData.velocity.x > .001f) {
             spriteRenderer.flipX = false;
         }
-        if (playerData.velocity.x < 0) {
+        if (playerData.velocity.x < -.001f) {
             spriteRenderer.flipX = true;
         }
     }

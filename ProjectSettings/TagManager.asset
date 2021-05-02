@@ -13,12 +13,12 @@ TagManager:
   - Water
   - UI
   - Collidable
+  - Player
   - 
   - 
   - 
   - 
-  - 
-  - 
+  - Scenery
   - 
   - 
   - 
@@ -44,4 +44,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 1286730529
+    locked: 0
+  - name: Scenery
+    uniqueID: 2885896405
     locked: 0
