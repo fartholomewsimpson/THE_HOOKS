@@ -1,13 +1,11 @@
-using StateStuff;
 using UnityEngine;
 
-[RequireComponent(typeof(Controller))]
-[RequireComponent(typeof(PlayerData))]
+[RequireComponent(typeof(CollisionHandler))]
+[RequireComponent(typeof(GravityEntity))]
+[RequireComponent(typeof(EntityData))]
 public class Player : MonoBehaviour
 {
-    public PlayerData playerData;
-
-    public float gravity;
+    public EntityData entityData;
     public float jumpSpeed;
     public int maxJumpAmount;
     public float moveSpeed;
@@ -17,12 +15,15 @@ public class Player : MonoBehaviour
     [SerializeField] bool _jumping;
     [SerializeField] int _jumpCounter;
 
-    Controller controller;
+    CollisionHandler _collisionHandler;
+    GravityEntity _gravityEntity;
 
     void Start() {
-        controller = GetComponent<Controller>();
+        _collisionHandler = GetComponent<CollisionHandler>();
+        _collisionHandler.OnVerticalCollision += HandleVerticalCollision;
 
-        controller.onVerticalCollision += handleVerticalCollision;
+        _gravityEntity = GetComponent<GravityEntity>();
+        _gravityEntity.AfterGravity += HandleInput;
     }
 
     void Update() {
@@ -32,22 +33,20 @@ public class Player : MonoBehaviour
         }
     }
 
-    void FixedUpdate() {
-        playerData.velocity.y -= gravity * Time.deltaTime;
-
+    void HandleInput() {
         if (Input.GetKey(KeyCode.A)) {
-            playerData.velocity.x = Mathf.Max(-moveSpeed, playerData.velocity.x - moveIncrement);
+            entityData.velocity.x = Mathf.Max(-moveSpeed, entityData.velocity.x - moveIncrement);
         } else if (Input.GetKey(KeyCode.D)) {
-            playerData.velocity.x = Mathf.Min(moveSpeed, playerData.velocity.x + moveIncrement);
+            entityData.velocity.x = Mathf.Min(moveSpeed, entityData.velocity.x + moveIncrement);
         } else if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D)) {
-            if (Mathf.Abs(playerData.velocity.x) < moveIncrement)
-                playerData.velocity.x = 0;
+            if (Mathf.Abs(entityData.velocity.x) < moveIncrement)
+                entityData.velocity.x = 0;
             else
-                playerData.velocity.x += Mathf.Sign(playerData.velocity.x) * -moveIncrement;
+                entityData.velocity.x += Mathf.Sign(entityData.velocity.x) * -moveIncrement;
         }
 
         if (_jumping && Input.GetKey(KeyCode.Space)) {
-            playerData.velocity.y = jumpSpeed;
+            entityData.velocity.y = jumpSpeed;
             _jumpCounter++;
             if (_jumpCounter >= maxJumpAmount) {
                 _jumping = false;
@@ -55,18 +54,14 @@ public class Player : MonoBehaviour
         } else {
             _jumping = false;
         }
-        
-        playerData.velocity = controller.Move(playerData.velocity);
     }
 
-    void handleVerticalCollision(RaycastHit2D hit)
-    {
+    void HandleVerticalCollision(RaycastHit2D hit) {
         if (hit.point.y > transform.position.y) {
             _jumping = false;
         } else {
             _canJump = true;
             _jumpCounter = 0;
         }
-        playerData.velocity.y = 0;
     }
 }

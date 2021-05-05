@@ -6,7 +6,7 @@ public class Animate : MonoBehaviour
 {
     Animator animator;
     SpriteRenderer spriteRenderer;
-    public PlayerData playerData;
+    public EntityData playerData;
 
     void Start()
     {

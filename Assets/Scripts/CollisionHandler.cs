@@ -2,13 +2,13 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
-public class Controller : MonoBehaviour
+public class CollisionHandler : MonoBehaviour
 {
     [Range(2, 10)]
     public int rayCount = 4;
     public LayerMask collisionMask;
 
-    public event Action<RaycastHit2D> onVerticalCollision, onHorizontalCollision;
+    public event Action<RaycastHit2D> OnVerticalCollision, OnHorizontalCollision;
 
     float paddingWidth = .05f;
     new BoxCollider2D collider;
@@ -69,8 +69,8 @@ public class Controller : MonoBehaviour
                 velocity.y = (hit.distance - paddingWidth) * sign;
                 Debug.DrawRay(origin, direction * distance, Color.blue);
                 distance = hit.distance;
-                if (onVerticalCollision != null)
-                    onVerticalCollision(hit);
+                if (OnVerticalCollision != null)
+                    OnVerticalCollision(hit);
             }
         }
     }
@@ -94,8 +94,8 @@ public class Controller : MonoBehaviour
                 velocity.x = (hit.distance - paddingWidth) * sign;
                 Debug.DrawRay(origin, direction * distance, Color.blue);
                 distance = hit.distance;
-                if (onHorizontalCollision != null)
-                    onHorizontalCollision(hit);
+                if (OnHorizontalCollision != null)
+                    OnHorizontalCollision(hit);
             }
         }
     }
