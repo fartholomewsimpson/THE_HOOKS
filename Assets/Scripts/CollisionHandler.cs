@@ -6,7 +6,7 @@ public class CollisionHandler : MonoBehaviour
 {
     [Range(2, 10)]
     public int rayCount = 4;
-    public LayerMask collisionMask;
+    public LayerMask collisionMask = 1;
 
     public event Action<RaycastHit2D> OnVerticalCollision, OnHorizontalCollision;
 

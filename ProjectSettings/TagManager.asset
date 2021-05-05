@@ -14,7 +14,7 @@ TagManager:
   - UI
   - Collidable
   - Player
-  - 
+  - Monsters
   - 
   - 
   - 
@@ -44,6 +44,9 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 1286730529
+    locked: 0
+  - name: Monster
+    uniqueID: 2226130801
     locked: 0
   - name: Scenery
     uniqueID: 2885896405

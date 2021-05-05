@@ -2,15 +2,13 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(CollisionHandler))]
-[RequireComponent(typeof(EntityData))]
 public class GravityEntity : MonoBehaviour
 {
-    public EntityData entityData;
-    public float gravity;
+    public Vector2 velocity;
+    public float gravity = 1;
 
     public event Action BeforeGravity, AfterGravity;
 
-    [SerializeField] Vector2 _velocity;
     CollisionHandler _collisionHandler;
 
     void Start() {
@@ -21,14 +19,14 @@ public class GravityEntity : MonoBehaviour
     void FixedUpdate() {
         if (BeforeGravity != null)
             BeforeGravity();
-        entityData.velocity.y -= gravity * Time.deltaTime;
+        velocity.y -= gravity * Time.deltaTime;
         if (AfterGravity != null)
             AfterGravity();
 
-        entityData.velocity = _collisionHandler.Move(entityData.velocity);
+        velocity = _collisionHandler.Move(velocity);
     }
 
     void HandleVerticalCollision(RaycastHit2D hit) {
-        entityData.velocity.y = 0;
+        velocity.y = 0;
     }
 }

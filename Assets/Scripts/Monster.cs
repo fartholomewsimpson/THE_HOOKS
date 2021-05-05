@@ -1,17 +1,33 @@
 using UnityEngine;
 
 [RequireComponent(typeof(CollisionHandler))]
+[RequireComponent(typeof(GravityEntity))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class Monster : MonoBehaviour
 {
-    CollisionHandler _controller;
+    public float moveSpeed = .1f;
+    public bool flip;
 
-    [SerializeField] float _velocity;
+    SpriteRenderer _spriteRenderer;
+    CollisionHandler _collisionHandler;
+    GravityEntity _gravityEntity;
 
     void Start() {
-        _controller = GetComponent<CollisionHandler>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+
+        _collisionHandler = GetComponent<CollisionHandler>();
+        _collisionHandler.OnHorizontalCollision += OnWallCollision;
+
+        _gravityEntity = GetComponent<GravityEntity>();
+        _gravityEntity.AfterGravity += DoThing;
     }
 
-    void FixedUpdate() {
-        _controller.Move(new Vector2(_velocity, 0));
+    void DoThing() {
+        _spriteRenderer.flipX = flip;
+        _gravityEntity.velocity.x = flip ? -moveSpeed : moveSpeed;
+    }
+
+    void OnWallCollision(RaycastHit2D hit) {
+        flip = hit.point.x > transform.position.x;
     }
 }

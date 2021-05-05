@@ -2,14 +2,12 @@ using UnityEngine;
 
 [RequireComponent(typeof(CollisionHandler))]
 [RequireComponent(typeof(GravityEntity))]
-[RequireComponent(typeof(EntityData))]
 public class Player : MonoBehaviour
 {
-    public EntityData entityData;
-    public float jumpSpeed;
-    public int maxJumpAmount;
-    public float moveSpeed;
-    public float moveIncrement;
+    public float jumpSpeed = .2f;
+    public int maxJumpAmount = 12;
+    public float moveSpeed = .2f;
+    public float moveIncrement = .015f;
 
     [SerializeField] bool _canJump;
     [SerializeField] bool _jumping;
@@ -35,18 +33,18 @@ public class Player : MonoBehaviour
 
     void HandleInput() {
         if (Input.GetKey(KeyCode.A)) {
-            entityData.velocity.x = Mathf.Max(-moveSpeed, entityData.velocity.x - moveIncrement);
+            _gravityEntity.velocity.x = Mathf.Max(-moveSpeed, _gravityEntity.velocity.x - moveIncrement);
         } else if (Input.GetKey(KeyCode.D)) {
-            entityData.velocity.x = Mathf.Min(moveSpeed, entityData.velocity.x + moveIncrement);
+            _gravityEntity.velocity.x = Mathf.Min(moveSpeed, _gravityEntity.velocity.x + moveIncrement);
         } else if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D)) {
-            if (Mathf.Abs(entityData.velocity.x) < moveIncrement)
-                entityData.velocity.x = 0;
+            if (Mathf.Abs(_gravityEntity.velocity.x) < moveIncrement)
+                _gravityEntity.velocity.x = 0;
             else
-                entityData.velocity.x += Mathf.Sign(entityData.velocity.x) * -moveIncrement;
+                _gravityEntity.velocity.x += Mathf.Sign(_gravityEntity.velocity.x) * -moveIncrement;
         }
 
         if (_jumping && Input.GetKey(KeyCode.Space)) {
-            entityData.velocity.y = jumpSpeed;
+            _gravityEntity.velocity.y = jumpSpeed;
             _jumpCounter++;
             if (_jumpCounter >= maxJumpAmount) {
                 _jumping = false;
