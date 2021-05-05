@@ -542,6 +542,7 @@ GameObject:
   - component: {fileID: 862071332}
   - component: {fileID: 862071331}
   - component: {fileID: 862071330}
+  - component: {fileID: 862071333}
   m_Layer: 8
   m_Name: Monster
   m_TagString: Untagged
@@ -653,7 +654,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e16d8c534891c74ea2269ec1727d211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0.1
+  moveSpeed: 0.05
   flip: 0
 --- !u!114 &862071331
 MonoBehaviour:
@@ -685,6 +686,25 @@ MonoBehaviour:
   collisionMask:
     serializedVersion: 2
     m_Bits: 64
+--- !u!95 &862071333
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 862071326}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3cc409ff8a63f8e42af0441fced7f908, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1193998149
 GameObject:
   m_ObjectHideFlags: 0
