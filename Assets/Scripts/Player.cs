@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     public float moveSpeed = .2f;
     public float moveIncrement = .015f;
 
-    [SerializeField] bool _canJump;
+    [SerializeField] bool _grounded;
     [SerializeField] bool _jumping;
     [SerializeField] int _jumpCounter;
 
@@ -25,9 +25,9 @@ public class Player : MonoBehaviour
     }
 
     void Update() {
-        if (Input.GetKeyDown(KeyCode.Space) && _canJump) {
+        if (Input.GetKeyDown(KeyCode.Space) && _grounded) {
             _jumping = true;
-            _canJump = false;
+            _grounded = false;
         }
     }
 
@@ -52,13 +52,17 @@ public class Player : MonoBehaviour
         } else {
             _jumping = false;
         }
+
+        if (_gravityEntity.velocity.y < 0) {
+            _grounded = false;
+        }
     }
 
     void HandleVerticalCollision(RaycastHit2D hit) {
         if (hit.point.y > transform.position.y) {
             _jumping = false;
         } else {
-            _canJump = true;
+            _grounded = true;
             _jumpCounter = 0;
         }
     }
