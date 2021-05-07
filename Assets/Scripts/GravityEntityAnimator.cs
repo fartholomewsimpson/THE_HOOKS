@@ -14,7 +14,7 @@ public class GravityEntityAnimator : MonoBehaviour
         _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
 
-        _gravityEntity = this.gameObject.GetComponentInHeirarchy<GravityEntity>();
+        _gravityEntity = this.gameObject.GetComponentInAncestry<GravityEntity>();
     }
 
     void FixedUpdate()

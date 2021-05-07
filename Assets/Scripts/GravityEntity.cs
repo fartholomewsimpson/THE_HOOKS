@@ -8,6 +8,7 @@ public class GravityEntity : MonoBehaviour
     public float gravity = 1;
 
     public event Action BeforeGravity, AfterGravity;
+    public event Action Hit;
 
     CollisionHandler _collisionHandler;
 
@@ -28,5 +29,9 @@ public class GravityEntity : MonoBehaviour
 
     void HandleVerticalCollision(RaycastHit2D hit) {
         velocity.y = 0;
+    }
+
+    public void GetHit() {
+        Hit();
     }
 }
