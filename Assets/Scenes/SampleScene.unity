@@ -233,7 +233,7 @@ GameObject:
   - component: {fileID: 601593562}
   - component: {fileID: 601593566}
   - component: {fileID: 601593563}
-  - component: {fileID: 601593569}
+  - component: {fileID: 601593567}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -269,13 +269,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eceae1b947008e945b5f6640f779db65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpSpeed: 0.2
-  maxJumpAmount: 12
+  jumpSpeed: 0.3
+  maxJumpAmount: 8
   moveSpeed: 0.2
   moveIncrement: 0.015
   _grounded: 0
   _jumping: 0
   _jumpCounter: 0
+  _health: 100
 --- !u!4 &601593564
 Transform:
   m_ObjectHideFlags: 0
@@ -332,7 +333,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocity: {x: 0, y: 0}
   gravity: 1
---- !u!114 &601593569
+--- !u!114 &601593567
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -341,13 +342,76 @@ MonoBehaviour:
   m_GameObject: {fileID: 601593561}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 048ec571293b34e4bab44d8fc761a3f1, type: 3}
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootOrigin: {fileID: 1692081059}
-  blastParticles: {fileID: 2655417889791339761, guid: 7778682a3a64ad240816275d483b6cb8,
+  m_Actions: {fileID: -944628639613478452, guid: cf232eb8918546c46a90f30db87a7a63,
     type: 3}
-  _flipped: 0
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 601593563}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: Jump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 0964ca65-eae1-4dbe-b39b-f092b1e7a2d9
+    m_ActionName: ControlCharacter/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 601593563}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: Move
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 035b40a4-fafc-4f7b-8161-2d0dec294e1b
+    m_ActionName: ControlCharacter/Move[/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1692081060}
+        m_TargetAssemblyTypeName: Gun, Assembly-CSharp
+        m_MethodName: Shoot
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 62e6d237-20cc-4da8-8b7c-fca75efaeb8b
+    m_ActionName: ControlCharacter/Shoot[/Mouse/leftButton]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: ControlCharacter
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &800341293
 GameObject:
   m_ObjectHideFlags: 0
@@ -1919,8 +1983,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1692081059}
+  - component: {fileID: 1692081060}
   m_Layer: 7
-  m_Name: ShootOrigin
+  m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1940,6 +2005,23 @@ Transform:
   m_Father: {fileID: 601593564}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1692081060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1692081058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 048ec571293b34e4bab44d8fc761a3f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blastParticles: {fileID: 2655417889791339761, guid: 7778682a3a64ad240816275d483b6cb8,
+    type: 3}
+  spriteRenderer: {fileID: 1731502980}
+  _animator: {fileID: 1731502981}
+  _flipped: 0
 --- !u!1 &1731502977
 GameObject:
   m_ObjectHideFlags: 0
@@ -2025,7 +2107,7 @@ SpriteRenderer:
   m_SortingLayerID: 1286730529
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 8020143640844766479, guid: eae0b3bdc525e564cb59422eb4ae315c,
+  m_Sprite: {fileID: -8677055240969258339, guid: 75579b111ba09dc4eb532a045a1e10b4,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2068,6 +2150,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monster
       objectReference: {fileID: 0}
+    - target: {fileID: 395784927913706932, guid: d97fe35aee1823145a6f6a7fae1baede,
+        type: 3}
+      propertyPath: wallLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 395784927913706932, guid: d97fe35aee1823145a6f6a7fae1baede,
+        type: 3}
+      propertyPath: playerLayer.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
     - target: {fileID: 395784927913706934, guid: d97fe35aee1823145a6f6a7fae1baede,
         type: 3}
       propertyPath: m_RootOrder
@@ -2076,12 +2168,12 @@ PrefabInstance:
     - target: {fileID: 395784927913706934, guid: d97fe35aee1823145a6f6a7fae1baede,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 19.02
+      value: 4.86
       objectReference: {fileID: 0}
     - target: {fileID: 395784927913706934, guid: d97fe35aee1823145a6f6a7fae1baede,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.69
+      value: -2.47
       objectReference: {fileID: 0}
     - target: {fileID: 395784927913706934, guid: d97fe35aee1823145a6f6a7fae1baede,
         type: 3}

@@ -8,6 +8,7 @@ public class Monster : MonoBehaviour
 {
     public float moveSpeed = .1f;
     public bool flip;
+    public float strength = 10;
 
     Animator _animator;
     SpriteRenderer _spriteRenderer;
@@ -36,10 +37,16 @@ public class Monster : MonoBehaviour
         flip = hit.point.x > transform.position.x;
     }
 
-    void Die() {
+    void Die(float amount) {
+        _animator.SetTrigger("Die");
+
         _gravityEntity.AfterGravity -= DoThing;
         _gravityEntity.velocity.x = 0;
-        _animator.SetTrigger("Die");
+        
+        // TODO: Hack
+        var hurtPlayer = GetComponentInChildren<HurtPlayer>();
+        GameObject.DestroyImmediate(hurtPlayer);
+        
         GameObject.Destroy(gameObject, 2);
     }
 }
