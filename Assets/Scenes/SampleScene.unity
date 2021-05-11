@@ -257,6 +257,7 @@ MonoBehaviour:
   collisionMask:
     serializedVersion: 2
     m_Bits: 64
+  paddingWidth: 0.05
 --- !u!114 &601593563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2168,12 +2169,12 @@ PrefabInstance:
     - target: {fileID: 395784927913706934, guid: d97fe35aee1823145a6f6a7fae1baede,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.86
+      value: 4.781
       objectReference: {fileID: 0}
     - target: {fileID: 395784927913706934, guid: d97fe35aee1823145a6f6a7fae1baede,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.47
+      value: -2.58
       objectReference: {fileID: 0}
     - target: {fileID: 395784927913706934, guid: d97fe35aee1823145a6f6a7fae1baede,
         type: 3}

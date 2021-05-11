@@ -7,10 +7,10 @@ public class CollisionHandler : MonoBehaviour
     [Range(2, 10)]
     public int rayCount = 4;
     public LayerMask collisionMask = 1;
+    public float paddingWidth = .05f;
 
     public event Action<RaycastHit2D> OnVerticalCollision, OnHorizontalCollision;
 
-    float paddingWidth = .05f;
     new BoxCollider2D collider;
     Bounds bounds;
     Vector2 topLeft, topRight, bottomLeft, bottomRight;

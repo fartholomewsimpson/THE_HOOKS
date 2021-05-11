@@ -79,7 +79,7 @@ public class Player : MonoBehaviour
 
         _health = Mathf.Max(_health - power, 0);
 
-        // TODO: Set grav entity velocity
+        // TODO: replace with directional velocity based on point of impact
         _gravityEntity.velocity = new Vector2(-.15f, .15f);
 
         // TODO: Display health
@@ -96,5 +96,7 @@ public class Player : MonoBehaviour
     }
 
     public void Move(InputAction.CallbackContext context) => _moveInput = context.ReadValue<float>();
-    public void Jump(InputAction.CallbackContext context) => _jumpInput = context.ReadValueAsButton();
+    public void Jump(InputAction.CallbackContext context) {
+        _jumpInput = context.ReadValueAsButton();
+    }
 }
