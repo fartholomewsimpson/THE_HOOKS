@@ -1,5 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(CollisionHandler))]
 [RequireComponent(typeof(GravityEntity))]
@@ -92,11 +94,21 @@ public class Player : MonoBehaviour
             _gravityEntity.Hit -= DamagePlayer;
             _collisionHandler.OnVerticalCollision -= HandleVerticalCollision;
             this.enabled = false;
+
+            StartCoroutine(Reset());
         }
     }
 
     public void Move(InputAction.CallbackContext context) => _moveInput = context.ReadValue<float>();
     public void Jump(InputAction.CallbackContext context) {
         _jumpInput = context.ReadValueAsButton();
+    }
+
+    // TODO: Replace this hack with something else
+    IEnumerator Reset() {
+        yield return new WaitForSeconds(5);
+
+        var scene = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(scene, LoadSceneMode.Single);
     }
 }
