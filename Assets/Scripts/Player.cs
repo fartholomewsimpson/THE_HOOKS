@@ -82,6 +82,7 @@ public class Player : MonoBehaviour
         _health = Mathf.Max(_health - power, 0);
 
         // TODO: replace with directional velocity based on point of impact
+        // NOTE: This involves refactoring HurtPlayer, since it can't get the pointOfContact currently.
         _gravityEntity.velocity = new Vector2(-.15f, .15f);
 
         // TODO: Display health
@@ -104,7 +105,7 @@ public class Player : MonoBehaviour
         _jumpInput = context.ReadValueAsButton();
     }
 
-    // TODO: Replace this hack with something else
+    // TODO: This is a hack. Move this to somewhere where it makes more sense.
     IEnumerator Reset() {
         yield return new WaitForSeconds(5);
 

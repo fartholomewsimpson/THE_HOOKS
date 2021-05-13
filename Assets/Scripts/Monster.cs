@@ -7,7 +7,6 @@ using UnityEngine;
 public class Monster : MonoBehaviour
 {
     public float moveSpeed = .1f;
-    public bool flip;
     public float strength = 10;
 
     Animator _animator;
@@ -19,31 +18,31 @@ public class Monster : MonoBehaviour
         _animator = GetComponent<Animator>();
 
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        SetFlip();
 
         _collisionHandler = GetComponent<CollisionHandler>();
         _collisionHandler.OnHorizontalCollision += OnWallCollision;
 
         _gravityEntity = GetComponent<GravityEntity>();
-        _gravityEntity.AfterGravity += DoThing;
         _gravityEntity.Hit += Die;
     }
 
-    void DoThing() {
-        _spriteRenderer.flipX = flip;
-        _gravityEntity.velocity.x = flip ? -moveSpeed : moveSpeed;
+    void SetFlip() {
+        _gravityEntity.velocity.x = _spriteRenderer.flipX ? -moveSpeed : moveSpeed;
     }
 
     void OnWallCollision(RaycastHit2D hit) {
-        flip = hit.point.x > transform.position.x;
+        _spriteRenderer.flipX = hit.point.x > transform.position.x;
+
+        SetFlip();
     }
 
     void Die(float amount) {
         _animator.SetTrigger("Die");
 
-        _gravityEntity.AfterGravity -= DoThing;
         _gravityEntity.velocity.x = 0;
         
-        // TODO: Hack
+        // TODO: Hack. That's another complication with the HurtPlayer script.
         var hurtPlayer = GetComponentInChildren<HurtPlayer>();
         GameObject.DestroyImmediate(hurtPlayer);
         

@@ -8,12 +8,13 @@ public class HurtPlayer : MonoBehaviour
 
     Collider2D _collider;
 
-    // TODO: Should this be a separate component? I wanna say yes,
-    //        but having the strength defined here feels not right.
+    // TODO: Can't get point of contact from collision due to nature of collision detection here.
+    //       Does it make sense to have this component, or could this be handled elsewhere?
     void FixedUpdate() {
         _collider = GetComponent<Collider2D>();
         var player = new Collider2D[1];
-        var contactFilter = new ContactFilter2D { layerMask = playerLayer, useLayerMask = true }; // TODO: class level?
+        // TODO: class level? Always is the same afterall.
+        var contactFilter = new ContactFilter2D { layerMask = playerLayer, useLayerMask = true };
         var collisionCount = _collider.OverlapCollider(contactFilter, player);
 
         if (collisionCount > 0) {
