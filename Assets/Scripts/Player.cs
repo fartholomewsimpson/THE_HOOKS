@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     public float moveIncrement = .015f;
 
     [SerializeField] bool _grounded;
+    [SerializeField] bool _canJump;
     [SerializeField] bool _jumping;
     [SerializeField] int _jumpCounter;
     [SerializeField] float _health = 100;
@@ -31,7 +32,6 @@ public class Player : MonoBehaviour
         _collisionHandler.OnVerticalCollision += HandleVerticalCollision;
 
         _gravityEntity = GetComponent<GravityEntity>();
-        // _gravityEntity.AfterGravity += HandleInput;
         _gravityEntity.Hit += DamagePlayer;
     }
 
@@ -47,9 +47,10 @@ public class Player : MonoBehaviour
                 _gravityEntity.velocity.x += Mathf.Sign(_gravityEntity.velocity.x) * -moveIncrement;
         }
 
-        if (_jumpInput && _grounded) {
+        if (_jumpInput && _grounded && _canJump) {
             _jumping = true;
             _grounded = false;
+            _canJump = false;
         }
 
         if (_jumping && _jumpInput) {
@@ -73,6 +74,9 @@ public class Player : MonoBehaviour
         } else {
             _grounded = true;
             _jumpCounter = 0;
+
+            if (!_jumpInput)
+                _canJump = true;
         }
     }
 

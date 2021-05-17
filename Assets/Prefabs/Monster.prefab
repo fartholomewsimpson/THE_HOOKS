@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 395784927913706933}
   - component: {fileID: 395784927913706932}
   - component: {fileID: 395784927913706931}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Monster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 395784928914130883}
   - component: {fileID: 395784928914130880}
   - component: {fileID: 395784928914130881}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: PlayerCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -252,5 +252,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerLayer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 1024
   strength: 10
