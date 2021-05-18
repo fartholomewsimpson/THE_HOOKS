@@ -4,8 +4,7 @@ using UnityEngine.InputSystem;
 public class Gun : MonoBehaviour {
     public GameObject blastParticles; 
     public SpriteRenderer spriteRenderer;
-    public Animator _animator;
-
+    public Animator animator;
 
     [SerializeField] bool _flipped;
 
@@ -17,16 +16,16 @@ public class Gun : MonoBehaviour {
         }
     }
 
-    public void Shoot (InputAction.CallbackContext context) {
+    public void Shoot(InputAction.CallbackContext context) {
         if (context.ReadValueAsButton()) {
-            _animator.SetTrigger("Shootin");
+            animator.SetTrigger("Shootin");
             var hit = Physics2D.Raycast(transform.position, spriteRenderer.flipX ? Vector2.left : Vector2.right);
             if (hit.collider.TryGetComponent<GravityEntity>(out GravityEntity entity)) {
                 entity.TakeDamage(10);
             }
             GameObject.Instantiate(blastParticles, hit.point, Quaternion.identity);
         } else {
-            _animator.ResetTrigger("Shootin");
+            animator.ResetTrigger("Shootin");
         }
     }
 }

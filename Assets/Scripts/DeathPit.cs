@@ -23,7 +23,6 @@ public class DeathPit : MonoBehaviour
         var collisionNumber = Physics2D.OverlapCollider(collider, contactFilter, colliders);
         if (collisionNumber > 0) {
             foreach (var col in colliders) {
-                Debug.Log(col.name);
                 var entity = col.gameObject.GetComponent<GravityEntity>();
                 if (entity != null) {
                     entity.TakeDamage(float.MaxValue);

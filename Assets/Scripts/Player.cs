@@ -111,7 +111,7 @@ public class Player : MonoBehaviour
 
     // TODO: This is a hack. Move this to somewhere where it makes more sense.
     IEnumerator Reset() {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(3);
 
         var scene = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(scene, LoadSceneMode.Single);
