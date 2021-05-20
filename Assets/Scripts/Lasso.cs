@@ -15,7 +15,6 @@ public class Lasso : MonoBehaviour
     Camera _camera;
 
     [SerializeField] bool _flipped;
-    [SerializeField] float _maxDistance = 1000;
     [SerializeField] bool _lassoing;
 
     void Start() {
@@ -40,22 +39,19 @@ public class Lasso : MonoBehaviour
 
                 _lassoRenderer.enabled = true;
 
-                var hit = Physics2D.Raycast(transform.position, mousePosition - transform.position, _maxDistance, layerMask);
+                var hit = Physics2D.Raycast(transform.position, mousePosition - transform.position, 1000, layerMask);
 
-                if (hit.distance < _maxDistance) {
-                    Debug.DrawRay(transform.position, hit.point, Color.red, 1);
+                Debug.DrawRay(transform.position, hit.point, Color.red, 1);
+                Debug.Log(hit.distance);
 
-                    Debug.Log(hit.distance);
+                _lassoRenderer.startWidth = .1f;
+                _lassoRenderer.endWidth = .1f;
+                _lassoRenderer.SetPositions(new List<Vector3>{
+                    transform.position,
+                    hit.point,
+                }.ToArray());
 
-                    _lassoRenderer.startWidth = .1f;
-                    _lassoRenderer.endWidth = .1f;
-                    _lassoRenderer.SetPositions(new List<Vector3>{
-                        transform.position,
-                        hit.point,
-                    }.ToArray());
-
-                    StartCoroutine(Zip(hit.point));
-                }
+                StartCoroutine(Zip(hit.point));
             }
         } else {
             _lassoRenderer.enabled = false;

@@ -9,8 +9,10 @@ public class GravityEntity : MonoBehaviour
 
     public event Action BeforeGravity, AfterGravity;
     public event Action<float> Hit;
+    public event Action Die;
 
     CollisionHandler _collisionHandler;
+    [SerializeField] float _health;
 
     void Start() {
         _collisionHandler = GetComponent<CollisionHandler>();
