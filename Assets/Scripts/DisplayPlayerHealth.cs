@@ -8,15 +8,17 @@ public class DisplayPlayerHealth : MonoBehaviour
 
     float _startingHealth;
     float _previousHealth;
+    float _startingScale;
 
     void Start() {
         _startingHealth = player.health;
         _previousHealth = _startingHealth;
+        _startingScale = transform.localScale.y;
     }
 
     void Update() {
         if (player.health != _previousHealth) {
-            var yScale = transform.localScale.y * (player.health)/_startingHealth;
+            var yScale = _startingScale * (player.health)/_startingHealth;
             transform.localScale = new Vector3(
                 transform.localScale.x,
                 yScale,

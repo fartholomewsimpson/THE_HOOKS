@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 public class Gun : MonoBehaviour {
     public GameObject blastParticles; 
+    public GameObject shell;
     public SpriteRenderer spriteRenderer;
     public Animator animator;
 
@@ -23,7 +24,14 @@ public class Gun : MonoBehaviour {
             if (hit.collider.TryGetComponent<GravityEntity>(out GravityEntity entity)) {
                 entity.TakeDamage(10);
             }
-            GameObject.Instantiate(blastParticles, hit.point, Quaternion.identity);
+            if (context.started) {
+                GameObject.Instantiate(
+                    shell,
+                    new Vector3(transform.position.x-.5f, transform.position.y, transform.position.z),
+                    Quaternion.identity,
+                    transform);
+                GameObject.Instantiate(blastParticles, hit.point, Quaternion.identity);
+            }
         } else {
             animator.ResetTrigger("Shootin");
         }
