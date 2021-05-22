@@ -6,6 +6,8 @@ public class Gun : MonoBehaviour {
     public GameObject shell;
     public SpriteRenderer spriteRenderer;
     public Animator animator;
+    public LayerMask layerMask;
+    public float bulletDistance = 10;
 
     Player player;
 
@@ -39,8 +41,8 @@ public class Gun : MonoBehaviour {
                 direction = direction.normalized;
             }
 
-            var hit = Physics2D.Raycast(transform.position, direction);
-            if (hit.collider.TryGetComponent<GravityEntity>(out GravityEntity entity)) {
+            var hit = Physics2D.Raycast(transform.position, direction, bulletDistance, layerMask);
+            if (hit.collider != null && hit.collider.TryGetComponent<GravityEntity>(out GravityEntity entity)) {
                 entity.TakeDamage(10);
             }
             if (context.started) {

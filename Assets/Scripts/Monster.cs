@@ -24,11 +24,11 @@ public class Monster : MonoBehaviour
         _collisionHandler.OnHorizontalCollision += OnWallCollision;
 
         _gravityEntity = GetComponent<GravityEntity>();
-        _gravityEntity.AfterGravity += DoThing;
-        _gravityEntity.Hit += Die;
+        _gravityEntity.AfterGravity += HandleFlip;
+        _gravityEntity.Die += Die;
     }
 
-    void DoThing() {
+    void HandleFlip() {
         _spriteRenderer.flipX = flip;
         _gravityEntity.velocity.x = flip ? -moveSpeed : moveSpeed;
     }
@@ -37,16 +37,14 @@ public class Monster : MonoBehaviour
         flip = hit.point.x > transform.position.x;
     }
 
-    void Die(float amount) {
+    void Die() {
         _animator.SetTrigger("Die");
 
-        _gravityEntity.AfterGravity -= DoThing;
+        _gravityEntity.AfterGravity -= HandleFlip;
         _gravityEntity.velocity.x = 0;
         
         // TODO: Hack. That's yet another complication with the HurtPlayer script.
         var hurtPlayer = GetComponentInChildren<HurtPlayer>();
         GameObject.DestroyImmediate(hurtPlayer);
-        
-        GameObject.Destroy(gameObject, 2);
     }
 }

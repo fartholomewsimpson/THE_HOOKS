@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
 
         _gravityEntity = GetComponent<GravityEntity>();
         _gravityEntity.Hit += DamagePlayer;
+        _gravityEntity.Die += OnDeath;
     }
 
     void FixedUpdate() {
@@ -90,20 +91,17 @@ public class Player : MonoBehaviour
         // TODO: replace with directional velocity based on point of impact
         // NOTE: This involves refactoring HurtPlayer, since it can't get the pointOfContact currently.
         _gravityEntity.velocity = new Vector2(-.15f, .15f);
+    }
 
-        // TODO: Display health
-        Debug.Log($"Health: {health}");
+    void OnDeath() {
+        _animator.SetTrigger("Die");
 
-        if (health <= 0) {
-            _animator.SetTrigger("Die");
+        _gravityEntity.velocity = Vector2.zero;
+        _gravityEntity.Hit -= DamagePlayer;
+        _collisionHandler.OnVerticalCollision -= HandleVerticalCollision;
+        this.enabled = false;
 
-            _gravityEntity.velocity = Vector2.zero;
-            _gravityEntity.Hit -= DamagePlayer;
-            _collisionHandler.OnVerticalCollision -= HandleVerticalCollision;
-            this.enabled = false;
-
-            StartCoroutine(Reset());
-        }
+        StartCoroutine(Reset());
     }
 
     public void Move(InputAction.CallbackContext context) => _moveInput = context.ReadValue<float>();

@@ -36,5 +36,12 @@ public class GravityEntity : MonoBehaviour
     public void TakeDamage(float amount) {
         if (Hit != null)
             Hit(amount);
+        
+        _health = Mathf.Max(_health - amount, 0);
+
+        if (_health <= 0) {
+             Die();
+             GameObject.Destroy(this.gameObject, 2);
+        }
     }
 }
