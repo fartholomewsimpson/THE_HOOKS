@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
     [SerializeField] bool _jumping;
     [SerializeField] int _jumpCounter;
     public float health = 100;
+    public bool aiming;
+    public bool downward;
 
     // TODO: Move animation elsewhere
     Animator _animator;
@@ -107,6 +109,16 @@ public class Player : MonoBehaviour
     public void Move(InputAction.CallbackContext context) => _moveInput = context.ReadValue<float>();
     public void Jump(InputAction.CallbackContext context) {
         _jumpInput = context.ReadValueAsButton();
+    }
+
+    public void Aim(InputAction.CallbackContext context) {
+        aiming = context.ReadValueAsButton();
+        _animator.SetBool("Aiming", aiming);
+    }
+    
+    public void LookDown(InputAction.CallbackContext context) {
+        downward = context.ReadValueAsButton();
+        _animator.SetBool("Downward", downward);
     }
 
     // TODO: This is a hack. Move this to somewhere where it makes more sense.

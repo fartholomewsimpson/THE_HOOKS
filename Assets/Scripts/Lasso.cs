@@ -17,9 +17,12 @@ public class Lasso : MonoBehaviour
     [SerializeField] bool _flipped;
     [SerializeField] bool _lassoing;
 
+    Player player;
+
     void Start() {
         _camera = Camera.main;
         _lassoRenderer = GetComponent<LineRenderer>();
+        player = transform.parent.GetComponent<Player>();
     }
 
     void Update() {
@@ -32,14 +35,22 @@ public class Lasso : MonoBehaviour
 
     public void ThrowLasso(InputAction.CallbackContext context) {
         if (context.ReadValueAsButton()) {
+            animator.SetTrigger("Lasso");
+
             if (!_lassoing) {
                 _lassoing = true;
 
-                var mousePosition = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-
                 _lassoRenderer.enabled = true;
 
-                var hit = Physics2D.Raycast(transform.position, mousePosition - transform.position, 1000, layerMask);
+                var direction = parentSprite.flipX ? Vector2.left : Vector2.right;
+                if (player.aiming) {
+                    direction.y = .5f;
+                    if (player.downward) {
+                        direction.y *= -1;
+                    }
+                    direction = direction.normalized;
+                }
+                var hit = Physics2D.Raycast(transform.position, direction, 1000, layerMask);
 
                 Debug.DrawRay(transform.position, hit.point, Color.red, 1);
                 Debug.Log(hit.distance);
@@ -51,6 +62,7 @@ public class Lasso : MonoBehaviour
                     hit.point,
                 }.ToArray());
 
+                animator.ResetTrigger("Lasso");
                 StartCoroutine(Zip(hit.point));
             }
         } else {

@@ -7,7 +7,14 @@ public class Gun : MonoBehaviour {
     public SpriteRenderer spriteRenderer;
     public Animator animator;
 
+    Player player;
+
     [SerializeField] bool _flipped;
+
+    void Start() {
+        // TODO: Fix this hack
+        player = transform.parent.GetComponent<Player>();
+    }
 
     void Update() {
         // TODO: Make this more better
@@ -19,15 +26,27 @@ public class Gun : MonoBehaviour {
 
     public void Shoot(InputAction.CallbackContext context) {
         if (context.ReadValueAsButton()) {
-            animator.SetTrigger("Shootin");
-            var hit = Physics2D.Raycast(transform.position, spriteRenderer.flipX ? Vector2.left : Vector2.right);
+            // TODO: Fix this
+            if (!player.aiming)
+                animator.SetTrigger("Shootin");
+            
+            var direction = spriteRenderer.flipX ? Vector2.left : Vector2.right;
+            if (player.aiming) {
+                direction.y = .5f;
+                if (player.downward) {
+                    direction.y *= -1;
+                }
+                direction = direction.normalized;
+            }
+
+            var hit = Physics2D.Raycast(transform.position, direction);
             if (hit.collider.TryGetComponent<GravityEntity>(out GravityEntity entity)) {
                 entity.TakeDamage(10);
             }
             if (context.started) {
                 GameObject.Instantiate(
                     shell,
-                    new Vector3(transform.position.x-.5f, transform.position.y, transform.position.z),
+                    new Vector3(transform.position.x, transform.position.y, transform.position.z),
                     Quaternion.identity,
                     transform);
                 GameObject.Instantiate(blastParticles, hit.point, Quaternion.identity);

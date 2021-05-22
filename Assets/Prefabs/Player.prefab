@@ -52,7 +52,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _flipped: 0
-  _maxDistance: 1000
   _lassoing: 0
 --- !u!120 &866482013
 LineRenderer:
@@ -247,6 +246,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocity: {x: 0, y: 0}
   gravity: 1
+  _health: 0
 --- !u!114 &3928620680046535786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,7 +267,9 @@ MonoBehaviour:
   _canJump: 0
   _jumping: 0
   _jumpCounter: 0
-  _health: 100
+  health: 100
+  aiming: 0
+  downward: 0
 --- !u!114 &3928620680046535790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -358,6 +360,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 542294f2-b558-4a7a-af23-79b963ce4145
     m_ActionName: ControlCharacter/Lasso[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3928620680046535786}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: Aim
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 26c95ab7-ccf0-454d-b546-74367237798c
+    m_ActionName: ControlCharacter/AimAngle[/Mouse/rightButton,/DualShock4GamepadHID/rightShoulder,/DualShock4GamepadHID/rightShoulder]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3928620680046535786}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: LookDown
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 4fe1b576-66a7-4b2c-adab-45f3591fa1b2
+    m_ActionName: ControlCharacter/LookDown[/Keyboard/s,/DualShock4GamepadHID/dpad/down,/DualShock4GamepadHID/dpad/down]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: ControlCharacter
@@ -408,6 +442,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blastParticles: {fileID: 2655417889791339761, guid: 7778682a3a64ad240816275d483b6cb8,
     type: 3}
+  shell: {fileID: 0}
   spriteRenderer: {fileID: 3928620681188757813}
   animator: {fileID: 3928620681188757812}
   _flipped: 0
