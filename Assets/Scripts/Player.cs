@@ -16,7 +16,6 @@ public class Player : MonoBehaviour
     [SerializeField] bool _canJump;
     [SerializeField] bool _jumping;
     [SerializeField] int _jumpCounter;
-    public float health = 100;
     public bool aiming;
     public bool downward;
 
@@ -85,8 +84,6 @@ public class Player : MonoBehaviour
 
     void DamagePlayer(float power) {
         _animator.SetTrigger("GetHurt");
-
-        health = Mathf.Max(health - power, 0);
 
         // TODO: replace with directional velocity based on point of impact
         // NOTE: This involves refactoring HurtPlayer, since it can't get the pointOfContact currently.

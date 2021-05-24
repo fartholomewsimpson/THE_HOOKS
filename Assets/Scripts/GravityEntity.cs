@@ -6,13 +6,13 @@ public class GravityEntity : MonoBehaviour
 {
     public Vector2 velocity;
     public float gravity = 1;
+    public float health;
 
     public event Action BeforeGravity, AfterGravity;
     public event Action<float> Hit;
     public event Action Die;
 
     CollisionHandler _collisionHandler;
-    [SerializeField] float _health;
 
     void Start() {
         _collisionHandler = GetComponent<CollisionHandler>();
@@ -37,9 +37,9 @@ public class GravityEntity : MonoBehaviour
         if (Hit != null)
             Hit(amount);
         
-        _health = Mathf.Max(_health - amount, 0);
+        health = Mathf.Max(health - amount, 0);
 
-        if (_health <= 0) {
+        if (health <= 0) {
              Die();
              GameObject.Destroy(this.gameObject, 2);
         }
