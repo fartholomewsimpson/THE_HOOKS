@@ -6,10 +6,10 @@ using UnityEngine;
 [RequireComponent(typeof(GravityEntity))]
 public class Frog : MonoBehaviour
 {
+    public GameObject deathPoofPrefab;
     public GameObject tonguePrefab;
     public Collider2D lineOfSight;
     public Animator animator;
-    public new ParticleSystem particleSystem;
     public LayerMask visionLayer;
     public float moveSpeed = .5f;
     public float aggroZone = 3;
@@ -36,7 +36,7 @@ public class Frog : MonoBehaviour
         
         _gravityEntity = GetComponent<GravityEntity>();
         _gravityEntity.AfterGravity += HandleUpdate;
-        _gravityEntity.Die += HandleDeath;
+        _gravityEntity.Die += Die;
     }
 
     void Update() {
@@ -90,12 +90,6 @@ public class Frog : MonoBehaviour
         }
     }
 
-    void HandleDeath() {
-        if (particleSystem != null) {
-            particleSystem.Play();
-        }
-    }
-
     void ShootTongue(Collider2D collider) {
         
         if (!_shootingTongue) {
@@ -136,4 +130,12 @@ public class Frog : MonoBehaviour
         _shootingTongue = false;
         _tongue = null;
     }
+
+    void Die() {
+        _gravityEntity.AfterGravity -= HandleUpdate;
+    }
+
+    void OnDestroy() {
+        GameObject.Instantiate(deathPoofPrefab, transform.position, Quaternion.identity);
+    }   
 }

@@ -8,10 +8,12 @@ public class Gun : MonoBehaviour {
     public Animator animator;
     public LayerMask layerMask;
     public float bulletDistance = 10;
+    public float strength = 50;
 
     Player player;
 
     [SerializeField] bool _flipped;
+    [SerializeField] bool _canShoot;
 
     void Start() {
         // TODO: Fix this hack
@@ -27,8 +29,9 @@ public class Gun : MonoBehaviour {
     }
 
     public void Shoot(InputAction.CallbackContext context) {
-        if (context.ReadValueAsButton()) {
+        if (context.ReadValueAsButton() && _canShoot) {
             // TODO: Fix this
+            _canShoot = false;
             if (!player.aiming)
                 animator.SetTrigger("Shootin");
             
@@ -43,7 +46,7 @@ public class Gun : MonoBehaviour {
 
             var hit = Physics2D.Raycast(transform.position, direction, bulletDistance, layerMask);
             if (hit.collider != null && hit.collider.TryGetComponent<GravityEntity>(out GravityEntity entity)) {
-                entity.TakeDamage(10);
+                entity.TakeDamage(strength);
             }
             if (context.started) {
                 GameObject.Instantiate(
@@ -55,6 +58,7 @@ public class Gun : MonoBehaviour {
             }
         } else {
             animator.ResetTrigger("Shootin");
+            _canShoot = true;
         }
     }
 }

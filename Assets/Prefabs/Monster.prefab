@@ -146,6 +146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocity: {x: 0, y: 0}
   gravity: 1
+  health: 80
 --- !u!114 &395784927913706932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,6 +159,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e16d8c534891c74ea2269ec1727d211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathPoofPrefab: {fileID: 1745879220581570291, guid: ad9a68b645d8feb43a3c63cf72815ae2,
+    type: 3}
   moveSpeed: 0.05
   flip: 0
   strength: 10

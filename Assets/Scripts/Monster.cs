@@ -6,6 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class Monster : MonoBehaviour
 {
+    public GameObject deathPoofPrefab;
     public float moveSpeed = .1f;
     public bool flip;
     public float strength = 10;
@@ -42,9 +43,9 @@ public class Monster : MonoBehaviour
 
         _gravityEntity.AfterGravity -= HandleFlip;
         _gravityEntity.velocity.x = 0;
-        
-        // TODO: Hack. That's yet another complication with the HurtPlayer script.
-        var hurtPlayer = GetComponentInChildren<HurtPlayer>();
-        GameObject.DestroyImmediate(hurtPlayer);
+    }
+
+    void OnDestroy() {
+        GameObject.Instantiate(deathPoofPrefab, transform.position, Quaternion.identity);
     }
 }

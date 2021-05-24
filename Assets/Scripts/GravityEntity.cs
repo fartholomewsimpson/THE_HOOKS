@@ -40,8 +40,10 @@ public class GravityEntity : MonoBehaviour
         health = Mathf.Max(health - amount, 0);
 
         if (health <= 0) {
-             Die();
-             GameObject.Destroy(this.gameObject, 2);
+            if (Die != null) {
+                Die();
+            }
+            GameObject.Destroy(this.gameObject, 1);
         }
     }
 }

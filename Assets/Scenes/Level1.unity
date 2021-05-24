@@ -192,6 +192,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d97fe35aee1823145a6f6a7fae1baede, type: 3}
+--- !u!114 &428610722 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3928620680046535791, guid: f51afce642bd94d0aa49786ac1309e66,
+    type: 3}
+  m_PrefabInstance: {fileID: 535273610}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a2352113e4c85d4da1808e22533a775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -405,6 +417,11 @@ PrefabInstance:
       objectReference: {fileID: 519420031}
     - target: {fileID: 3928620680046535791, guid: f51afce642bd94d0aa49786ac1309e66,
         type: 3}
+      propertyPath: health
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3928620680046535791, guid: f51afce642bd94d0aa49786ac1309e66,
+        type: 3}
       propertyPath: _health
       value: 100
       objectReference: {fileID: 0}
@@ -414,6 +431,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4337905608924288150, guid: ef36a2eb3b4114ca7aff6a90259f9d68,
         type: 3}
+    - target: {fileID: 3928620681137088789, guid: f51afce642bd94d0aa49786ac1309e66,
+        type: 3}
+      propertyPath: strength
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 3928620681137088789, guid: f51afce642bd94d0aa49786ac1309e66,
         type: 3}
       propertyPath: layerMask.m_Bits
@@ -620,7 +642,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aadf3bbbd7db44ac185bc378f0ae5993, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entity: {fileID: 0}
+  entity: {fileID: 428610722}
 --- !u!4 &872277291 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3928620680046535789, guid: f51afce642bd94d0aa49786ac1309e66,
@@ -6357,16 +6379,37 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7597452585721299737, guid: b6e0ded86ee9aa241b50a240618f5a26,
+        type: 3}
+      propertyPath: m_Layer
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 7597452586046340210, guid: b6e0ded86ee9aa241b50a240618f5a26,
         type: 3}
       propertyPath: m_Name
       value: Frog
+      objectReference: {fileID: 0}
+    - target: {fileID: 7597452586046340210, guid: b6e0ded86ee9aa241b50a240618f5a26,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7597452586046340211, guid: b6e0ded86ee9aa241b50a240618f5a26,
+        type: 3}
+      propertyPath: health
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7597452586046340213, guid: b6e0ded86ee9aa241b50a240618f5a26,
         type: 3}
       propertyPath: tongueWidth
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 7597452586046340213, guid: b6e0ded86ee9aa241b50a240618f5a26,
+        type: 3}
+      propertyPath: deathPoofPrefab
+      value: 
+      objectReference: {fileID: 1745879220581570291, guid: ad9a68b645d8feb43a3c63cf72815ae2,
+        type: 3}
     - target: {fileID: 7597452586046340214, guid: b6e0ded86ee9aa241b50a240618f5a26,
         type: 3}
       propertyPath: m_Enabled
