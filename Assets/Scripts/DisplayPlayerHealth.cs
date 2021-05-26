@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DisplayPlayerHealth : MonoBehaviour
@@ -17,7 +15,7 @@ public class DisplayPlayerHealth : MonoBehaviour
     }
 
     void Update() {
-        if (entity.health > 0 && entity.health != _previousHealth) {
+        if (entity != null && entity.health != _previousHealth) {
             var yScale = _startingScale * (entity.health)/_startingHealth;
             transform.localScale = new Vector3(
                 transform.localScale.x,

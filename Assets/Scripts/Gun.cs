@@ -13,7 +13,6 @@ public class Gun : MonoBehaviour {
     Player player;
 
     [SerializeField] bool _flipped;
-    [SerializeField] bool _canShoot;
 
     void Start() {
         // TODO: Fix this hack
@@ -29,9 +28,7 @@ public class Gun : MonoBehaviour {
     }
 
     public void Shoot(InputAction.CallbackContext context) {
-        if (context.ReadValueAsButton() && _canShoot) {
-            // TODO: Fix this
-            _canShoot = false;
+        if (context.ReadValueAsButton()) {
             if (!player.aiming)
                 animator.SetTrigger("Shootin");
             
@@ -58,7 +55,6 @@ public class Gun : MonoBehaviour {
             }
         } else {
             animator.ResetTrigger("Shootin");
-            _canShoot = true;
         }
     }
 }

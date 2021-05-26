@@ -21,7 +21,7 @@ public class Frog : MonoBehaviour
     [SerializeField] bool _flip;
     [SerializeField] bool _jumping;
     [SerializeField] bool _shootingTongue;
-    bool _flipped;
+    [SerializeField] bool _flipped;
 
     SpriteRenderer _spriteRenderer;
     CollisionHandler _collisionHandler;
@@ -124,6 +124,7 @@ public class Frog : MonoBehaviour
 
     IEnumerator CloseMouth() {
         yield return new WaitForSeconds(2);
+
         if (_tongue != null) {
             GameObject.Destroy(_tongue);
         }
@@ -133,9 +134,6 @@ public class Frog : MonoBehaviour
 
     void Die() {
         _gravityEntity.AfterGravity -= HandleUpdate;
-    }
-
-    void OnDestroy() {
         GameObject.Instantiate(deathPoofPrefab, transform.position, Quaternion.identity);
-    }   
+    }
 }

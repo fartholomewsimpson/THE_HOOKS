@@ -43,9 +43,7 @@ public class Monster : MonoBehaviour
 
         _gravityEntity.AfterGravity -= HandleFlip;
         _gravityEntity.velocity.x = 0;
-    }
 
-    void OnDestroy() {
         GameObject.Instantiate(deathPoofPrefab, transform.position, Quaternion.identity);
     }
 }
