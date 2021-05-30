@@ -27,8 +27,9 @@ public class HurtPlayer : MonoBehaviour
     IEnumerator DamagePlayer(Collider2D player) {
         if (!_damaging) {
             _damaging = true;
+            var direction = (player.transform.position - transform.position).normalized;
             var entity = player.gameObject.GetComponent<GravityEntity>();
-            entity.TakeDamage(strength);
+            entity.TakeDamage(strength, direction);
             yield return new WaitForSeconds(1);
             _damaging = false;
         }

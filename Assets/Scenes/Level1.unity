@@ -6877,6 +6877,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0.223
       objectReference: {fileID: 0}
+    - target: {fileID: 5560511006307280805, guid: b6e0ded86ee9aa241b50a240618f5a26,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6537951586701666622, guid: b6e0ded86ee9aa241b50a240618f5a26,
         type: 3}
       propertyPath: entity
@@ -6891,6 +6896,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7597452586046340209, guid: b6e0ded86ee9aa241b50a240618f5a26,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7597452586046340210, guid: b6e0ded86ee9aa241b50a240618f5a26,
         type: 3}
@@ -6918,6 +6928,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1745879220581570291, guid: ad9a68b645d8feb43a3c63cf72815ae2,
         type: 3}
+    - target: {fileID: 7597452586046340213, guid: b6e0ded86ee9aa241b50a240618f5a26,
+        type: 3}
+      propertyPath: tongueLayer.m_Bits
+      value: 3136
+      objectReference: {fileID: 0}
     - target: {fileID: 7597452586046340214, guid: b6e0ded86ee9aa241b50a240618f5a26,
         type: 3}
       propertyPath: m_Enabled

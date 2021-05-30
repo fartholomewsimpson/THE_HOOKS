@@ -43,7 +43,7 @@ public class Gun : MonoBehaviour {
 
             var hit = Physics2D.Raycast(transform.position, direction, bulletDistance, layerMask);
             if (hit.collider != null && hit.collider.TryGetComponent<GravityEntity>(out GravityEntity entity)) {
-                entity.TakeDamage(strength);
+                entity.TakeDamage(strength, direction);
             }
             if (context.started) {
                 GameObject.Instantiate(

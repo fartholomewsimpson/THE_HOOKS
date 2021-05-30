@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(CollisionHandler))]
 [RequireComponent(typeof(GravityEntity))]
 public class Player : MonoBehaviour
+// TODO: Right now this class does everything. What should this class do, and where should the rest go?
 {
     public float jumpSpeed = .2f;
     public int maxJumpAmount = 12;
@@ -20,7 +21,7 @@ public class Player : MonoBehaviour
     public bool aiming;
     public bool downward;
 
-    // TODO: Move animation elsewhere
+    // TODO: Move animation elsewhere?
     Animator _animator;
     CollisionHandler _collisionHandler;
     GravityEntity _gravityEntity;
@@ -86,12 +87,10 @@ public class Player : MonoBehaviour
         }
     }
 
-    void DamagePlayer(float power) {
+    void DamagePlayer(float power, Vector2 direction) {
         _animator.SetTrigger("GetHurt");
 
-        // TODO: replace with directional velocity based on point of impact
-        // NOTE: This involves refactoring HurtPlayer, since it can't get the pointOfContact currently.
-        _gravityEntity.velocity = new Vector2(-.15f, .15f);
+        _gravityEntity.velocity = .15f * direction;
     }
 
     void OnDeath() {
@@ -127,6 +126,7 @@ public class Player : MonoBehaviour
         }
     }
 
+    // TODO: This should probably be elsewhere
     void SetStatuses(bool status) {
         var statuses = GameObject.FindGameObjectsWithTag(statusTag);
         foreach (var s in statuses) {

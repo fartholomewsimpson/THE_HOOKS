@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
@@ -11,6 +12,7 @@ public class Frog : MonoBehaviour
     public Collider2D lineOfSight;
     public Animator animator;
     public LayerMask visionLayer;
+    public LayerMask tongueLayer;
     public float moveSpeed = .5f;
     public float aggroZone = 3;
     public float dangerZone = 1f;
@@ -91,27 +93,28 @@ public class Frog : MonoBehaviour
     }
 
     void ShootTongue(Collider2D collider) {
-        
-        if (!_shootingTongue) {
+        if (!_shootingTongue && _tongue == null) {
+            Debug.Log("SHOOTING TONGUE");
             animator.SetTrigger("Tongue");
             _shootingTongue = true;
 
+            
             var target = collider.transform.position;
-            // TODO: Can I make mask be just collider.layer and terrain or something?
-            // How else to handle raycast collision problem?
-            var mask = new LayerMask();
-            var hit = Physics2D.Raycast(transform.position, target - transform.position, tongueLength, mask);
-            if (hit.collider == collider) {
-                var entity = hit.collider.GetComponent<GravityEntity>();
-                if (entity != null) {
-                    entity.TakeDamage(strength);
+            var direction = (target - transform.position).normalized;
+            var hits = Physics2D.RaycastAll(transform.position, direction, tongueLength, tongueLayer);
+            foreach (var hit in hits.Where(h => h.collider.gameObject != this.gameObject)) {
+                if (hit.collider == collider) {
+                    var entity = hit.collider.GetComponent<GravityEntity>();
+                    if (entity != null) {
+                        entity.TakeDamage(strength, direction);
+                    }
                 }
             }
 
             _tongue = GameObject.Instantiate(
                 tonguePrefab,
                 transform.position,
-                Quaternion.LookRotation(Vector3.forward, target-transform.position),
+                Quaternion.LookRotation(Vector3.forward, direction),
                 transform);
             var lineRenderer = _tongue.GetComponent<LineRenderer>();
             lineRenderer.startWidth = tongueWidth;
@@ -120,17 +123,17 @@ public class Frog : MonoBehaviour
                 transform.position,
                 target});
         } else {
+            _shootingTongue = false;
             StartCoroutine(CloseMouth());
         }
     }
 
     IEnumerator CloseMouth() {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
 
         if (_tongue != null) {
             GameObject.Destroy(_tongue);
         }
-        _shootingTongue = false;
         _tongue = null;
     }
 

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(CollisionHandler))]
@@ -9,7 +10,7 @@ public class GravityEntity : MonoBehaviour
     public float health;
 
     public event Action BeforeGravity, AfterGravity;
-    public event Action<float> Hit;
+    public event Action<float, Vector2> Hit;
     public event Action Die;
 
     CollisionHandler _collisionHandler;
@@ -33,9 +34,9 @@ public class GravityEntity : MonoBehaviour
         velocity.y = 0;
     }
 
-    public void TakeDamage(float amount) {
+    public void TakeDamage(float amount, Vector2 direction = default) {
         if (Hit != null)
-            Hit(amount);
+            Hit(amount, direction);
         
         health = Mathf.Max(health - amount, 0);
 

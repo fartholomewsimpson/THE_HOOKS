@@ -8,33 +8,27 @@ namespace Relationships {
         public LayerMask layerMask;
         public int maxVisible = 10;
 
-        [SerializeField] List<RelationshipEntity> _relationships;
-        [SerializeField] Dictionary<RelationshipEntity, float> _relationshipRatings;
-        [SerializeField] List<RelationshipEvent> _events;
-        [SerializeField] Dictionary<RelationshipEvent, float> _eventRatings;
-
-        [SerializeField] float _currentSituationRating;
+        public List<RelationshipEntity> Relationships { get; private set; } = new List<RelationshipEntity>();
+        public Dictionary<RelationshipEntity, Vector2> RelationshipRatings { get; private set; } = new Dictionary<RelationshipEntity, Vector2>();
+        public List<RelationshipEvent> Events { get; private set; } = new List<RelationshipEvent>();
+        public Dictionary<RelationshipEvent, Vector2> EventRatings { get; private set; } = new Dictionary<RelationshipEvent, Vector2>();
+        public Vector2 CurrentSituationRating { get; private set; }
 
         public float GetEntityRating(RelationshipEntity entity) {
-            return _relationshipRatings
+            // TODO: Make this rating system combine the two values in some intelligent way,
+            //        or just get rid of it entirely or something.
+            return RelationshipRatings
                 .Where(kvp => kvp.Key == entity)
-                .Sum(kvp => kvp.Value);
+                .Sum(kvp => kvp.Value.x);
         }
 
         public void AddRelationship(RelationshipEntity entity) {
-            _relationships.Add(entity);
+            Relationships.Add(entity);
             AddEvent();
         }
 
         public void AddEvent() {
-
-        }
-
-        void Start() {
-            _relationships = new List<RelationshipEntity>();
-            _relationshipRatings = new Dictionary<RelationshipEntity, float>();
-            _events = new List<RelationshipEvent>();
-            _eventRatings = new Dictionary<RelationshipEvent, float>();
+            // TODO: Do this
         }
 
         void Update() {
@@ -44,7 +38,7 @@ namespace Relationships {
                 for (int i = 0; i < visibleColliders.Length; i++) {
                     var col = visibleColliders[i];
                     var relationship = col?.GetComponent<RelationshipEntity>();
-                    if (relationship?.gameObject != this.gameObject && !_relationships.Contains(relationship)) {
+                    if (relationship?.gameObject != this.gameObject && !Relationships.Contains(relationship)) {
                         AddRelationship(relationship);
                     }
                 }

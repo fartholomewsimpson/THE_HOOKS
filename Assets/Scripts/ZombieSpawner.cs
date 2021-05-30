@@ -20,7 +20,7 @@ public class ZombieSpawner : MonoBehaviour
         _gravityEntity.Hit += Die;
     }
 
-    void Die(float amount) {
+    void Die(float amount, Vector2 direction) {
         GameObject.Instantiate(explosion);
         GameObject.Destroy(this);
     }
