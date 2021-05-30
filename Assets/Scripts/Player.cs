@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     public int maxJumpAmount = 12;
     public float moveSpeed = .2f;
     public float moveIncrement = .015f;
+    public string statusTag = "status";
 
     [SerializeField] bool _grounded;
     [SerializeField] bool _canJump;
@@ -25,6 +26,7 @@ public class Player : MonoBehaviour
     GravityEntity _gravityEntity;
     float _moveInput;
     bool _jumpInput;
+    bool _displayStatuses;
 
     void Start() {
         _animator = GetComponentInChildren<Animator>();
@@ -35,6 +37,8 @@ public class Player : MonoBehaviour
         _gravityEntity = GetComponent<GravityEntity>();
         _gravityEntity.Hit += DamagePlayer;
         _gravityEntity.Die += OnDeath;
+
+        SetStatuses(_displayStatuses);
     }
 
     void FixedUpdate() {
@@ -114,6 +118,23 @@ public class Player : MonoBehaviour
     public void LookDown(InputAction.CallbackContext context) {
         downward = context.ReadValueAsButton();
         _animator.SetBool("Downward", downward);
+    }
+
+    public void ToggleStatuses(InputAction.CallbackContext context) {
+        if (context.ReadValueAsButton() && context.started) {
+            _displayStatuses = !_displayStatuses;
+            SetStatuses(_displayStatuses);
+        }
+    }
+
+    void SetStatuses(bool status) {
+        var statuses = GameObject.FindGameObjectsWithTag(statusTag);
+        foreach (var s in statuses) {
+            var canvas = s.GetComponent<Canvas>();
+            if (canvas != null) {
+                canvas.enabled = status;
+            } 
+        }
     }
 
     // TODO: This is a hack. Move this to somewhere where it makes more sense.

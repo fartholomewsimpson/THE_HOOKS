@@ -4,25 +4,26 @@ using UnityEngine.UI;
 
 public class DisplayEntityInfo : MonoBehaviour
 {
-    // relationship to player is common among most entities
-    public RelationshipEntity playerEntity;
+    public string playerTag;
     public RelationshipEntity relationshipEntity;
 
-    Text text;
+    RelationshipEntity _playerEntity;
+    Text _text;
 
     void Start() {
-        text = GetComponent<Text>();
+        _text = GetComponent<Text>();
+        _playerEntity = GameObject.FindGameObjectWithTag(playerTag).GetComponent<RelationshipEntity>();
     }
 
     void Update() {
-        var rating = relationshipEntity.GetEntityRating(playerEntity);
+        var rating = relationshipEntity.GetEntityRating(_playerEntity);
         if (rating > 0) {
-            text.color = Color.green;
+            _text.color = Color.green;
         } else if (rating < 0) {
-            text.color = Color.red;
+            _text.color = Color.red;
         } else {
-            text.color = Color.white;
+            _text.color = Color.white;
         }
-        text.text = $"@you: {rating}";
+        _text.text = $"@you: {rating}";
     }
 }

@@ -8,18 +8,27 @@ namespace Relationships {
         public LayerMask layerMask;
         public int maxVisible = 10;
 
-        public float GetEntityRating(RelationshipEntity entity) {
-            return _relationshipRatings
-                .Where(kvp => kvp.Key == entity)
-                .Sum(kvp => kvp.Value);
-        }
-
         [SerializeField] List<RelationshipEntity> _relationships;
         [SerializeField] Dictionary<RelationshipEntity, float> _relationshipRatings;
         [SerializeField] List<RelationshipEvent> _events;
         [SerializeField] Dictionary<RelationshipEvent, float> _eventRatings;
 
         [SerializeField] float _currentSituationRating;
+
+        public float GetEntityRating(RelationshipEntity entity) {
+            return _relationshipRatings
+                .Where(kvp => kvp.Key == entity)
+                .Sum(kvp => kvp.Value);
+        }
+
+        public void AddRelationship(RelationshipEntity entity) {
+            _relationships.Add(entity);
+            AddEvent();
+        }
+
+        public void AddEvent() {
+
+        }
 
         void Start() {
             _relationships = new List<RelationshipEntity>();
@@ -36,7 +45,7 @@ namespace Relationships {
                     var col = visibleColliders[i];
                     var relationship = col?.GetComponent<RelationshipEntity>();
                     if (relationship?.gameObject != this.gameObject && !_relationships.Contains(relationship)) {
-                        _relationships.Add(relationship);
+                        AddRelationship(relationship);
                     }
                 }
             }
