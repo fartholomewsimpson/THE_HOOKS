@@ -52,6 +52,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Examine",
+                    "type": "Button",
+                    "id": "d1634b4a-1dbd-45a2-96e1-9ba1fec4352e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -168,7 +176,7 @@
                 {
                     "name": "",
                     "id": "cded8020-18bf-4adb-b069-4a68a93d95e0",
-                    "path": "<Keyboard>/e",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -190,7 +198,7 @@
                 {
                     "name": "",
                     "id": "cf62aede-9321-4fd1-8647-35c200b70397",
-                    "path": "<Mouse>/rightButton",
+                    "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -228,6 +236,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "LookDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b951fa79-c015-40ae-952e-7dd1c3467373",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Examine",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "59378f1e-d1e8-4e16-8ecb-ee18cce4f1df",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Examine",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

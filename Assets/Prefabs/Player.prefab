@@ -1,5 +1,52 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &305833510598993018
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3869378423725086124}
+  - component: {fileID: 3913765054131629159}
+  m_Layer: 19
+  m_Name: LineOfSight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3869378423725086124
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 305833510598993018}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -4.18, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3928620680046535789}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &3913765054131629159
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 305833510598993018}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 5.078944}
+  serializedVersion: 2
+  m_Radius: 5.578944
 --- !u!1 &432974883024229990
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,6 +212,7 @@ GameObject:
   - component: {fileID: 3928620680046535791}
   - component: {fileID: 3928620680046535786}
   - component: {fileID: 3928620680046535790}
+  - component: {fileID: 101861585912049843}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -186,6 +234,7 @@ Transform:
   - {fileID: 3928620681188757811}
   - {fileID: 3928620681137088786}
   - {fileID: 2820202805684418848}
+  - {fileID: 3869378423725086124}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -246,7 +295,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocity: {x: 0, y: 0}
   gravity: 1
-  _health: 0
+  health: 0
 --- !u!114 &3928620680046535786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,7 +316,6 @@ MonoBehaviour:
   _canJump: 0
   _jumping: 0
   _jumpCounter: 0
-  health: 100
   aiming: 0
   downward: 0
 --- !u!114 &3928620680046535790
@@ -397,6 +445,25 @@ MonoBehaviour:
   m_DefaultActionMap: ControlCharacter
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &101861585912049843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3928620680046535784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a65d79ec5065a3544ac4cb8af514af34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lineOfSight: {fileID: 3913765054131629159}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 3072
+  maxVisible: 20
+  _relationships: []
+  _currentSituationRating: 0
 --- !u!1 &3928620681137088787
 GameObject:
   m_ObjectHideFlags: 0
@@ -445,6 +512,11 @@ MonoBehaviour:
   shell: {fileID: 0}
   spriteRenderer: {fileID: 3928620681188757813}
   animator: {fileID: 3928620681188757812}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  bulletDistance: 10
+  strength: 50
   _flipped: 0
 --- !u!1 &3928620681188757808
 GameObject:

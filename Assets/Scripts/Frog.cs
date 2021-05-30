@@ -97,26 +97,28 @@ public class Frog : MonoBehaviour
             _shootingTongue = true;
 
             var target = collider.transform.position;
-            var hit = Physics2D.Raycast(transform.position, target - transform.position, tongueLength, visionLayer);
-            _tongue = GameObject.Instantiate(
-                tonguePrefab,
-                transform.position,
-                Quaternion.LookRotation(Vector3.forward, target-transform.position),
-                transform);
-
-            var lineRenderer = _tongue.GetComponent<LineRenderer>();
-            lineRenderer.startWidth = tongueWidth;
-            lineRenderer.endWidth = tongueWidth;
-            lineRenderer.SetPositions(new Vector3[] {
-                transform.position,
-                target});
-
+            // TODO: Can I make mask be just collider.layer and terrain or something?
+            // How else to handle raycast collision problem?
+            var mask = new LayerMask();
+            var hit = Physics2D.Raycast(transform.position, target - transform.position, tongueLength, mask);
             if (hit.collider == collider) {
                 var entity = hit.collider.GetComponent<GravityEntity>();
                 if (entity != null) {
                     entity.TakeDamage(strength);
                 }
             }
+
+            _tongue = GameObject.Instantiate(
+                tonguePrefab,
+                transform.position,
+                Quaternion.LookRotation(Vector3.forward, target-transform.position),
+                transform);
+            var lineRenderer = _tongue.GetComponent<LineRenderer>();
+            lineRenderer.startWidth = tongueWidth;
+            lineRenderer.endWidth = tongueWidth;
+            lineRenderer.SetPositions(new Vector3[] {
+                transform.position,
+                target});
         } else {
             StartCoroutine(CloseMouth());
         }
