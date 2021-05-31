@@ -12,10 +12,13 @@ public class DisplayEntityInfo : MonoBehaviour
 
     void Start() {
         _text = GetComponent<Text>();
-        _playerEntity = GameObject.FindGameObjectWithTag(playerTag).GetComponent<RelationshipEntity>();
+        _playerEntity = GameObject.FindGameObjectWithTag(playerTag)?.GetComponent<RelationshipEntity>();
     }
 
     void Update() {
+        if (_playerEntity == null)
+            return;
+
         var rating = relationshipEntity.GetEntityRating(_playerEntity);
         if (rating > 0) {
             _text.color = Color.green;

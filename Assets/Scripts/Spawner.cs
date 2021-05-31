@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(GravityEntity))]
-public class ZombieSpawner : MonoBehaviour
+public class Spawner : MonoBehaviour
 {
     public GameObject explosion;
-    public GameObject zombiePrefab;
+    public GameObject entityPrefab;
     public int childCount = 10;
     public float spawnRate = 3;
+    public float width = 3;
 
     [SerializeField] bool _spawning;
     [SerializeField] List<GameObject> _children;
@@ -27,18 +28,20 @@ public class ZombieSpawner : MonoBehaviour
 
     void Update() {
         if (_children.Count < childCount) {
-            StartCoroutine(SpawnZombie());
+            StartCoroutine(SpawnEntity());
         }
     }
 
-    public IEnumerator SpawnZombie() {
+    public IEnumerator SpawnEntity() {
         if (!_spawning) {
             _spawning = true;
             yield return new WaitForSeconds(spawnRate);
 
-            var location = new Vector2(transform.position.x, transform.position.y + 1);
-            var zombie = GameObject.Instantiate(zombiePrefab, location, Quaternion.identity);
-            _children.Add(zombie);
+            var randX = Random.Range(-width, width);
+            var randY = Random.Range(0, width);
+            var location = new Vector2(transform.position.x + randX, transform.position.y + 1 + randY);
+            var entity = GameObject.Instantiate(entityPrefab, location, Quaternion.identity);
+            _children.Add(entity);
             _spawning = false;
         }
     }
