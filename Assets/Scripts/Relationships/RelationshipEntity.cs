@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Relationships {
     public class RelationshipEntity : MonoBehaviour {
+        public new string name;
         public Collider2D lineOfSight;
         public LayerMask layerMask;
         public int maxVisible = 10;
@@ -11,8 +12,7 @@ namespace Relationships {
         public List<RelationshipEntity> Relationships { get; private set; } = new List<RelationshipEntity>();
         public Dictionary<RelationshipEntity, Vector2> RelationshipRatings { get; private set; } = new Dictionary<RelationshipEntity, Vector2>();
         public List<RelationshipEvent> Events { get; private set; } = new List<RelationshipEvent>();
-        public Dictionary<RelationshipEvent, Vector2> EventRatings { get; private set; } = new Dictionary<RelationshipEvent, Vector2>();
-        public Vector2 CurrentSituationRating { get; private set; }
+        public string Name { get; private set; }
 
         public float GetEntityRating(RelationshipEntity entity) {
             // TODO: Make this rating system combine the two values in some intelligent way,
@@ -22,24 +22,33 @@ namespace Relationships {
                 .Sum(kvp => kvp.Value.x);
         }
 
-        public void AddRelationship(RelationshipEntity entity) {
-            Relationships.Add(entity);
-            AddEvent();
+        void Start() {
+            Name = $"{name}_{Random.Range(0, 1000)}";
         }
 
-        public void AddEvent() {
-            // TODO: Do this
-        }
-
+        // TODO: Finding visible entities should be done somewhere else, like gravity entity or something?
         void Update() {
+            // Right now, just looks at currently visible entities and adds new ones
             var contactFilter = new ContactFilter2D { useLayerMask = true, layerMask = layerMask };
             var visibleColliders = new Collider2D[maxVisible];
             if (lineOfSight != null && Physics2D.OverlapCollider(lineOfSight, contactFilter, visibleColliders) > 0) {
                 for (int i = 0; i < visibleColliders.Length; i++) {
                     var col = visibleColliders[i];
-                    var relationship = col?.GetComponent<RelationshipEntity>();
-                    if (relationship?.gameObject != this.gameObject && !Relationships.Contains(relationship)) {
-                        AddRelationship(relationship);
+                    if (col != null) {
+                        var relationship = col?.GetComponent<RelationshipEntity>();
+                        if (relationship != null &&
+                            relationship?.gameObject != this.gameObject &&
+                            !Relationships.Contains(relationship)
+                        ) {
+                            Relationships.Add(relationship);
+                            var relationshipEvent = new RelationshipEvent {
+                                Target = relationship,
+                                Rating = Vector2.zero,
+                                Text = $"Met {relationship.Name}",
+                            };
+                            Events.Add(relationshipEvent);
+                            RelationshipRatings[relationship] = relationshipEvent.Rating;
+                        }
                     }
                 }
             }

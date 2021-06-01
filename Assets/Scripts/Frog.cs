@@ -59,45 +59,44 @@ public class Frog : MonoBehaviour
     }
 
     void HandleUpdate() {
-        if (!_jumping && lineOfSight != null) {
-            var visible = new Collider2D[10];
-            var contactFilter = new ContactFilter2D{ layerMask = visionLayer, useLayerMask = true };
-            if (lineOfSight.OverlapCollider(contactFilter, visible) > 0) {
-                int closestIndex = 0;
-                float closestDistance = float.MaxValue;
-                for (int i = 0; i < visible.Length && visible[i] != null; i++) {
-                    if (visible[i].gameObject.name != this.gameObject.name) {
-                        var distance = (transform.position - visible[i].transform.position).magnitude;
-                        if (distance < closestDistance) {
-                            closestDistance = distance;
-                            closestIndex = i;
-                        }
+        if (!_jumping && lineOfSight == null)
+            return;
+
+        var visible = new Collider2D[10];
+        var contactFilter = new ContactFilter2D{ layerMask = visionLayer, useLayerMask = true };
+        if (lineOfSight.OverlapCollider(contactFilter, visible) > 0) {
+            int closestIndex = 0;
+            float closestDistance = float.MaxValue;
+            for (int i = 0; i < visible.Length && visible[i] != null; i++) {
+                if (visible[i].gameObject.name != this.gameObject.name) {
+                    var distance = (transform.position - visible[i].transform.position).magnitude;
+                    if (distance < closestDistance) {
+                        closestDistance = distance;
+                        closestIndex = i;
                     }
                 }
-
-                if (closestDistance <= dangerZone) {
-                    Debug.DrawRay(transform.position, visible[closestIndex].transform.position - transform.position, Color.green, 2);
-
-                    _jumping = true;
-                    _flip = visible[closestIndex].transform.position.x > transform.position.x;
-                    _spriteRenderer.flipX = _flip;
-                    _gravityEntity.velocity.x = _flip ? -moveSpeed : moveSpeed;
-                    _gravityEntity.velocity.y = moveSpeed;
-                } else if (closestDistance <= aggroZone) {
-                    Debug.DrawRay(transform.position, visible[closestIndex].transform.position - transform.position, Color.green, 2);
-
-                    ShootTongue(visible[closestIndex]);
-                }
             }
+
+            // TODO: this should be removed and replaced with the neural network 
+            // if (closestDistance <= dangerZone) {
+            //     Debug.DrawRay(transform.position, visible[closestIndex].transform.position - transform.position, Color.green, 2);
+
+            //     _jumping = true;
+            //     _flip = visible[closestIndex].transform.position.x > transform.position.x;
+            //     _spriteRenderer.flipX = _flip;
+            //     _gravityEntity.velocity.x = _flip ? -moveSpeed : moveSpeed;
+            //     _gravityEntity.velocity.y = moveSpeed;
+            // } else if (closestDistance <= aggroZone) {
+            //     Debug.DrawRay(transform.position, visible[closestIndex].transform.position - transform.position, Color.green, 2);
+            //     ShootTongue(visible[closestIndex]);
+            // }
         }
     }
 
     void ShootTongue(Collider2D collider) {
         if (!_shootingTongue && _tongue == null) {
-            Debug.Log("SHOOTING TONGUE");
             animator.SetTrigger("Tongue");
             _shootingTongue = true;
-
             
             var target = collider.transform.position;
             var direction = (target - transform.position).normalized;
@@ -128,6 +127,7 @@ public class Frog : MonoBehaviour
         }
     }
 
+    // TODO: Does this have to be like this?
     IEnumerator CloseMouth() {
         yield return new WaitForSeconds(1);
 

@@ -92,6 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 80842670928995168}
   - component: {fileID: 3679277050509953280}
+  - component: {fileID: 3525585510103071102}
   m_Layer: 5
   m_Name: Status
   m_TagString: status
@@ -141,6 +142,20 @@ Canvas:
   m_SortingLayerID: -234384841
   m_SortingOrder: 5
   m_TargetDisplay: 0
+--- !u!114 &3525585510103071102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2542383655616132359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c97117c5bfd8b9419e6f0a97aa11807, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTag: Player
+  relationshipEntity: {fileID: 0}
 --- !u!1 &7530935873242599173
 GameObject:
   m_ObjectHideFlags: 0
@@ -151,7 +166,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3449895835227315998}
   - component: {fileID: 7034246708440380573}
-  - component: {fileID: 6485328934459476143}
   - component: {fileID: 4895415359347190906}
   m_Layer: 5
   m_Name: Rating
@@ -187,20 +201,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7530935873242599173}
   m_CullTransparentMesh: 1
---- !u!114 &6485328934459476143
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7530935873242599173}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c97117c5bfd8b9419e6f0a97aa11807, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerTag: Player
-  relationshipEntity: {fileID: 0}
 --- !u!114 &4895415359347190906
 MonoBehaviour:
   m_ObjectHideFlags: 0
