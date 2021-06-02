@@ -2,7 +2,6 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 
-[RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(CollisionHandler))]
 [RequireComponent(typeof(GravityEntity))]
 public class Frog : MonoBehaviour
@@ -25,14 +24,11 @@ public class Frog : MonoBehaviour
     [SerializeField] bool _shootingTongue;
     [SerializeField] bool _flipped;
 
-    SpriteRenderer _spriteRenderer;
     CollisionHandler _collisionHandler;
     GravityEntity _gravityEntity;
     GameObject _tongue;
 
     void Start() {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-
         _collisionHandler = GetComponent<CollisionHandler>();
         _collisionHandler.OnVerticalCollision += OnVerticalCollision;
         

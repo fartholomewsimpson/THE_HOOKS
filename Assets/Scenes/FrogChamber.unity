@@ -208,6 +208,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7564235181966822703, guid: ff785e3ec8eb8d740b5f52f124a5ed53,
         type: 3}
+      propertyPath: camera
+      value: 
+      objectReference: {fileID: 2141212001}
+    - target: {fileID: 7564235181966822703, guid: ff785e3ec8eb8d740b5f52f124a5ed53,
+        type: 3}
       propertyPath: entityPrefab
       value: 
       objectReference: {fileID: 7597452586046340210, guid: b6e0ded86ee9aa241b50a240618f5a26,
@@ -234,7 +239,6 @@ GameObject:
   - component: {fileID: 928729666}
   - component: {fileID: 928729665}
   - component: {fileID: 928729663}
-  - component: {fileID: 928729668}
   m_Layer: 0
   m_Name: InputHandler
   m_TagString: Untagged
@@ -254,6 +258,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 295803ac07de4714d99df3a3ec8bdf9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  statusTag: status
+  _activated: 0
 --- !u!114 &928729664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -306,10 +312,10 @@ MonoBehaviour:
     m_ActionName: ControlCharacter/LookDown[/Keyboard/s,/DualShock4GamepadHID/dpad/down]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 928729668}
-        m_TargetAssemblyTypeName: DisplayEntityInfo, Assembly-CSharp
+      - m_Target: {fileID: 928729663}
+        m_TargetAssemblyTypeName: HandleInput, Assembly-CSharp
         m_MethodName: ToggleStatuses
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -386,22 +392,6 @@ RectTransform:
   m_AnchoredPosition: {x: -0.67289877, y: -5.46}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &928729668
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 928729662}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c97117c5bfd8b9419e6f0a97aa11807, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  statusTag: status
-  playerTag: Player
-  relationshipEntity: {fileID: 0}
-  _displayStatuses: 0
 --- !u!1001 &1669067295
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3403,7 +3393,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 10.27
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -3427,7 +3417,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2141211999}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: -5.97, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

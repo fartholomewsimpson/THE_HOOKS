@@ -1,18 +1,27 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(DisplayEntityInfo))]
 public class HandleInput : MonoBehaviour
 {
-    DisplayEntityInfo _display;
+    public string statusTag;
+    [SerializeField] bool _activated;
 
-    void Start() {
-        _display = GetComponent<DisplayEntityInfo>();
-    }
-    
     public void ToggleStatuses(InputAction.CallbackContext context) {
         if (context.ReadValueAsButton() && context.started) {
-            _display.ToggleStatuses();
+            _activated = !_activated;
+
+            Debug.Log($"statuses: {_activated}");
+            var objs = GameObject.FindGameObjectsWithTag(statusTag);
+            foreach (var obj in objs) {
+                var spriteRenderer = obj.GetComponent<SpriteRenderer>();
+                if (spriteRenderer != null) {
+                    spriteRenderer.enabled = _activated;
+                }
+                var canvas = obj.GetComponent<Canvas>();
+                if (canvas != null) {
+                    canvas.enabled = _activated;
+                }
+            }
         }
     }
 }

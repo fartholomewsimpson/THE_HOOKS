@@ -119,6 +119,7 @@ public class Player : MonoBehaviour
         _animator.SetBool("Downward", downward);
     }
 
+// TODO: Break out player controls from player object
     public void ToggleStatuses(InputAction.CallbackContext context) {
         if (context.ReadValueAsButton() && context.started) {
             _displayStatuses = !_displayStatuses;
@@ -129,12 +130,7 @@ public class Player : MonoBehaviour
     // TODO: This should probably be elsewhere
     void SetStatuses(bool status) {
         var statuses = GameObject.FindGameObjectsWithTag(statusTag);
-        foreach (var s in statuses) {
-            var canvas = s.GetComponent<Canvas>();
-            if (canvas != null) {
-                canvas.enabled = status;
-            } 
-        }
+        
     }
 
     // TODO: This is a hack. Move this to somewhere where it makes more sense.

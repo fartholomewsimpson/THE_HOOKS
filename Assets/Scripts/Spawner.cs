@@ -11,9 +11,6 @@ public class Spawner : MonoBehaviour
     public int childCount = 10;
     public float spawnRate = 3;
     public float width = 3;
-    public new string tag;
-    // TODO: I feel like this should move
-    public bool renderStatus;
 
     [SerializeField] bool _spawning;
     [SerializeField] List<GameObject> _children;
@@ -45,8 +42,6 @@ public class Spawner : MonoBehaviour
             var randY = Random.Range(0, width);
             var location = new Vector2(transform.position.x + randX, transform.position.y + 1 + randY);
             var entity = GameObject.Instantiate(entityPrefab, location, Quaternion.identity);
-            entity.tag = tag;
-            entity.GetComponent<DisplayEntityInfo>()?.SetStatuses(renderStatus);
             var canvas = entity.GetComponent<Canvas>();
             if (canvas != null) {
                 canvas.worldCamera = camera;
