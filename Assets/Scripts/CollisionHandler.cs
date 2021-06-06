@@ -20,7 +20,6 @@ public class CollisionHandler : MonoBehaviour
         public Vector2 end;
     }
 
-    // TODO: Rather than having a public move function, maybe this should be a component and just move on fixedupdate?
     public Vector2 Move(Vector2 velocity) {
         CalculateCorners();
         if (Mathf.Abs(velocity.y) > 0)

@@ -114,23 +114,11 @@ public class Frog : MonoBehaviour
             var lineRenderer = _tongue.GetComponent<LineRenderer>();
             lineRenderer.startWidth = tongueWidth;
             lineRenderer.endWidth = tongueWidth;
-            lineRenderer.SetPositions(new Vector3[] {
-                transform.position,
-                target});
+            lineRenderer.SetPositions(new Vector3[] { transform.position, target });
         } else {
             _shootingTongue = false;
-            StartCoroutine(CloseMouth());
+            GameObject.Destroy(_tongue, 1);
         }
-    }
-
-    // TODO: Does this have to be like this?
-    IEnumerator CloseMouth() {
-        yield return new WaitForSeconds(1);
-
-        if (_tongue != null) {
-            GameObject.Destroy(_tongue);
-        }
-        _tongue = null;
     }
 
     void Die() {

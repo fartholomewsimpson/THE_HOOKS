@@ -9,18 +9,13 @@ public class Gun : MonoBehaviour {
     public LayerMask layerMask;
     public float bulletDistance = 10;
     public float strength = 50;
+    public Player player;
 
-    Player player;
-
-    [SerializeField] bool _flipped;
-
-    void Start() {
-        // TODO: Fix this hack
-        player = transform.parent.GetComponent<Player>();
-    }
+    bool _flipped;
 
     void Update() {
-        // TODO: Make this more better
+        // TODO: Maybe for this, flipped should be stored somewhere aside from the sprite renderer
+        // to remove the wierd dependency.
         if (spriteRenderer.flipX != _flipped) {
             _flipped = spriteRenderer.flipX;
             transform.localPosition = new Vector2(transform.localPosition.x * -1, transform.localPosition.y);

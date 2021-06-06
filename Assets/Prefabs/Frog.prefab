@@ -329,7 +329,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocity: {x: 0, y: 0}
   gravity: 1
-  health: 0
+  health: 50
 --- !u!1001 &221065478926514563
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,12 +1,12 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class HandleInput : MonoBehaviour
+public class ToggleStatuses : MonoBehaviour
 {
     public string statusTag;
     [SerializeField] bool _activated;
 
-    public void ToggleStatuses(InputAction.CallbackContext context) {
+    public void Toggle(InputAction.CallbackContext context) {
         if (context.ReadValueAsButton() && context.started) {
             _activated = !_activated;
 

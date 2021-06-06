@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3869378423725086124}
   - component: {fileID: 3913765054131629159}
+  - component: {fileID: 286396159}
   m_Layer: 19
   m_Name: LineOfSight
   m_TagString: Untagged
@@ -47,6 +48,24 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 5.078944}
   serializedVersion: 2
   m_Radius: 5.578944
+--- !u!114 &286396159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 305833510598993018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89c90c2c311a2164fb2013c461c4b69e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  _examining: 0
+  _maxVisible: 10
+  _visible: []
 --- !u!1 &3928620680046535784
 GameObject:
   m_ObjectHideFlags: 0
@@ -62,6 +81,7 @@ GameObject:
   - component: {fileID: 3928620680046535786}
   - component: {fileID: 3928620680046535790}
   - component: {fileID: 101861585912049843}
+  - component: {fileID: 193215040}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -144,7 +164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocity: {x: 0, y: 0}
   gravity: 1
-  health: 0
+  health: 100
 --- !u!114 &3928620680046535786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,9 +311,21 @@ MonoBehaviour:
     m_ActionId: 4fe1b576-66a7-4b2c-adab-45f3591fa1b2
     m_ActionName: ControlCharacter/LookDown[/Keyboard/s,/DualShock4GamepadHID/dpad/down,/DualShock4GamepadHID/dpad/down]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 193215040}
+        m_TargetAssemblyTypeName: ToggleStatuses, Assembly-CSharp
+        m_MethodName: Toggle
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: d1634b4a-1dbd-45a2-96e1-9ba1fec4352e
-    m_ActionName: ControlCharacter/Examine[/Keyboard/e,/DualShock4GamepadHID/buttonNorth]
+    m_ActionName: ControlCharacter/Examine[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: ControlCharacter
@@ -317,6 +349,20 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 3072
   maxVisible: 20
+--- !u!114 &193215040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3928620680046535784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 295803ac07de4714d99df3a3ec8bdf9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statusTag: status
+  _activated: 0
 --- !u!1 &3928620681188757808
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,14 +488,35 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3003937720693661136, guid: a05dd924dad147649b4d26dd26e45064,
         type: 3}
+      propertyPath: shell
+      value: 
+      objectReference: {fileID: 4337905608924288150, guid: ef36a2eb3b4114ca7aff6a90259f9d68,
+        type: 3}
+    - target: {fileID: 3003937720693661136, guid: a05dd924dad147649b4d26dd26e45064,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 3928620680046535786}
+    - target: {fileID: 3003937720693661136, guid: a05dd924dad147649b4d26dd26e45064,
+        type: 3}
       propertyPath: animator
       value: 
       objectReference: {fileID: 3928620681188757812}
     - target: {fileID: 3003937720693661136, guid: a05dd924dad147649b4d26dd26e45064,
         type: 3}
+      propertyPath: strength
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3003937720693661136, guid: a05dd924dad147649b4d26dd26e45064,
+        type: 3}
       propertyPath: spriteRenderer
       value: 
       objectReference: {fileID: 3928620681188757813}
+    - target: {fileID: 3003937720693661136, guid: a05dd924dad147649b4d26dd26e45064,
+        type: 3}
+      propertyPath: layerMask.m_Bits
+      value: 3136
+      objectReference: {fileID: 0}
     - target: {fileID: 3003937720693661142, guid: a05dd924dad147649b4d26dd26e45064,
         type: 3}
       propertyPath: m_Name
@@ -602,6 +669,36 @@ PrefabInstance:
       propertyPath: animator
       value: 
       objectReference: {fileID: 3928620681188757812}
+    - target: {fileID: 1626072801524990023, guid: c03dbe2dd96c086468c725a5805c8fb1,
+        type: 3}
+      propertyPath: parentSprite
+      value: 
+      objectReference: {fileID: 3928620681188757813}
+    - target: {fileID: 2579821046482812895, guid: c03dbe2dd96c086468c725a5805c8fb1,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 73aa7792f88024445984b0842cdf8383, type: 2}
+    - target: {fileID: 2579821046482812895, guid: c03dbe2dd96c086468c725a5805c8fb1,
+        type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2579821046482812895, guid: c03dbe2dd96c086468c725a5805c8fb1,
+        type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2579821046482812895, guid: c03dbe2dd96c086468c725a5805c8fb1,
+        type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2579821046482812895, guid: c03dbe2dd96c086468c725a5805c8fb1,
+        type: 3}
+      propertyPath: m_Parameters.colorGradient.m_Mode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2724503838103510756, guid: c03dbe2dd96c086468c725a5805c8fb1,
         type: 3}
       propertyPath: m_Name
