@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Linq;
 using UnityEngine;
 
@@ -6,7 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(GravityEntity))]
 public class Frog : MonoBehaviour
 {
-    public GameObject deathPoofPrefab;
     public GameObject tonguePrefab;
     public Collider2D lineOfSight;
     public Animator animator;
@@ -73,7 +71,7 @@ public class Frog : MonoBehaviour
                 }
             }
 
-            // TODO: this should be removed and replaced with the neural network 
+            // TODO: this should be removed and replaced with the neural network
             // if (closestDistance <= dangerZone) {
             //     Debug.DrawRay(transform.position, visible[closestIndex].transform.position - transform.position, Color.green, 2);
 
@@ -123,6 +121,5 @@ public class Frog : MonoBehaviour
 
     void Die() {
         _gravityEntity.AfterGravity -= HandleUpdate;
-        GameObject.Instantiate(deathPoofPrefab, transform.position, Quaternion.identity);
     }
 }
