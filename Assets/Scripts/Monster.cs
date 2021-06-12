@@ -6,12 +6,14 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class Monster : MonoBehaviour
 {
-    public GameObject deathPoofPrefab;
+    public Transform lineOfSight;
     public float moveSpeed = .1f;
     public float strength = 10;
     public Collider2D hurtBox;
     public ContactFilter2D contactFilter;
 
+    [SerializeField] bool _flipped;
+    [SerializeField] bool _dead;
     Animator _animator;
     SpriteRenderer _spriteRenderer;
     CollisionHandler _collisionHandler;
@@ -35,27 +37,28 @@ public class Monster : MonoBehaviour
         _gravityEntity.velocity.x = MoveSpeed;
     }
 
-    void FixedUpdate() {
-        _gravityEntity.velocity.x = MoveSpeed;
-        var hits = new Collider2D[5];
-        Physics2D.OverlapCollider(hurtBox, contactFilter, hits);
-        foreach (var hit in hits) {
-            var entity = hit?.GetComponent<GravityEntity>();
-            if (entity != null && entity.gameObject != this.gameObject) {
-                var direction = (Vector2)(entity.transform.position) - hit.ClosestPoint(transform.position);
-                entity.TakeDamage(strength, direction);
-            }
+    void Update() {
+        if (_spriteRenderer.flipX != _flipped) {
+            _flipped = _spriteRenderer.flipX;
+            lineOfSight.localScale = new Vector3(
+                lineOfSight.localScale.x * -1,
+                lineOfSight.localScale.y,
+                lineOfSight.localScale.z);
         }
     }
 
+    void FixedUpdate() {
+        _gravityEntity.velocity.x = _dead ? 0 : MoveSpeed;
+        var hits = new Collider2D[5];
+    }
+
     void OnWallCollision(RaycastHit2D hit) {
+        // TODO: This will be handled by the neural network for behavior maybe
         _spriteRenderer.flipX = hit.point.x > transform.position.x;
     }
 
     void Die() {
         _animator.SetTrigger("Die");
-        _gravityEntity.velocity.x = 0;
-
-        GameObject.Instantiate(deathPoofPrefab, transform.position, Quaternion.identity);
+        _dead = true;
     }
 }

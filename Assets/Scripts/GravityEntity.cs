@@ -43,7 +43,6 @@ public class GravityEntity : MonoBehaviour
             if (Die != null) {
                 Die();
             }
-            GameObject.Destroy(this.gameObject, 1);
         }
     }
 }
