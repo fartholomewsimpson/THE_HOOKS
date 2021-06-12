@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -22,8 +23,10 @@ namespace Relationships {
                 .Sum(kvp => kvp.Value.x);
         }
 
+        public event Action<RelationshipEntity> OnAddRelationship;
+
         void Start() {
-            Name = $"{name}_{Random.Range(0, 1000)}";
+            Name = $"{name}_{UnityEngine.Random.Range(0, 1000)}";
         }
 
         // TODO: Finding visible entities should be done somewhere else, like gravity entity or something?
@@ -40,17 +43,25 @@ namespace Relationships {
                             relationship?.gameObject != this.gameObject &&
                             !Relationships.Contains(relationship)
                         ) {
-                            Relationships.Add(relationship);
-                            var relationshipEvent = new RelationshipEvent {
-                                Target = relationship,
-                                Rating = Vector2.zero,
-                                Text = $"Met {relationship.Name}",
-                            };
-                            Events.Add(relationshipEvent);
-                            RelationshipRatings[relationship] = relationshipEvent.Rating;
+                            AddRelationship(relationship);
                         }
                     }
                 }
+            }
+        }
+
+        void AddRelationship(RelationshipEntity relationship) {
+            Relationships.Add(relationship);
+            var relationshipEvent = new RelationshipEvent {
+                Target = relationship,
+                Rating = Vector2.zero,
+                Text = $"Met {relationship.Name}",
+            };
+            Events.Add(relationshipEvent);
+            RelationshipRatings[relationship] = relationshipEvent.Rating;
+
+            if (OnAddRelationship != null) {
+                OnAddRelationship(relationship);
             }
         }
     }
