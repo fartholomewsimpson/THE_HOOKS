@@ -1,15 +1,32 @@
-using System;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
-namespace NeuralNetwork {
+namespace Neural {
     public class Layer {
-        public List<Node> Inputs { get; set; }
-        public List<Connection> Connections { get; set; }
-        public Func<float, float> Function { get; set; }
+        public List<Node> Nodes { get; set; }
 
         public Layer() {
-            Inputs = new List<Node>();
-            Connections = new List<Connection>();
+            Nodes = new List<Node>();
+        }
+
+        public Layer(int count, int layerIndex) {
+            Nodes = new List<Node>();
+            for (int i = 0; i < count; i++) {
+                Nodes.Add(new Node(Random.value, new Vector2(layerIndex, i)));
+            }
+        }
+
+        public void AddNode(Node output) {
+            foreach (var node in Nodes) {
+                node.AddConnection(output, Random.value);
+            }
+        }
+
+        public void RemoveNode(Node output) {
+            foreach(var node in Nodes) {
+                node.RemoveConnection(output);
+            }
         }
     }
 }

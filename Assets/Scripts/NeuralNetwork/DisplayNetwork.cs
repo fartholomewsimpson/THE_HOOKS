@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace NeuralNetwork {
+namespace Neural {
     public class DisplayNetwork : MonoBehaviour {
         public NeuralNetwork network;
         public GameObject nodePrefab, connectionPrefab;
@@ -19,39 +19,39 @@ namespace NeuralNetwork {
         }
 
         void Start() {
-            network.OnNodeUpdate += Refresh;
             _rectTransform = GetComponent<RectTransform>();
 
             _nodes = new Dictionary<Node, NodeData>();
             _bottomLeft = new Vector2(_rectTransform.rect.xMin, _rectTransform.rect.yMin);
         }
 
-        void Refresh() {
-            title.text = network.gameObject.name;
+        // TODO: What to do about this?
+        // void Refresh() {
+        //     title.text = network.gameObject.name;
 
-            if (_nodes.Count > 0)
-                DeleteNodes();
+        //     if (_nodes.Count > 0)
+        //         DeleteNodes();
 
-            for (int i = 0; i < network.Layers.Length; i++) {
-                // Inputs
-                for (int j = 0; j < network.Layers[i].Inputs.Count; j++) {
-                    AddNode(
-                        new Vector2((i * spacing) + (spacing/2), (j * spacing) + (spacing/2)),
-                        network.Layers[i].Inputs[j]
-                    );
-                }
+        //     for (int i = 0; i < network.Layers.Length; i++) {
+        //         // Inputs
+        //         for (int j = 0; j < network.Layers[i].Inputs.Count; j++) {
+        //             AddNode(
+        //                 new Vector2((i * spacing) + (spacing/2), (j * spacing) + (spacing/2)),
+        //                 network.Layers[i].Inputs[j]
+        //             );
+        //         }
 
-                // Connections
-                foreach (var con in network.Layers[i].Connections) {
-                    var line = Instantiate(connectionPrefab, transform.position, Quaternion.identity, transform)
-                        .GetComponent<LineRenderer>();
-                    // line.SetPositions(new Vector3[] {
-                    //     _nodes[con.Input].transform.localPosition,
-                    //     _nodes[con.Output].transform.localPosition,
-                    // });
-                }
-            }
-        }
+        //         // Connections
+        //         foreach (var con in network.Layers[i].Connections) {
+        //             var line = Instantiate(connectionPrefab, transform.position, Quaternion.identity, transform)
+        //                 .GetComponent<LineRenderer>();
+        //             // line.SetPositions(new Vector3[] {
+        //             //     _nodes[con.Input].transform.localPosition,
+        //             //     _nodes[con.Output].transform.localPosition,
+        //             // });
+        //         }
+        //     }
+        // }
 
         void AddNode(Vector2 position, Node node) {
             var obj = GameObject.Instantiate(nodePrefab, transform.position, Quaternion.identity, transform);

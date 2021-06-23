@@ -1,6 +1,7 @@
-using System;
+using UnityEditor;
+using UnityEngine;
 
-namespace NeuralNetwork {
+namespace Neural {
     public class Connection {
         public Node Input { get; set; }
         public Node Output { get; set; }
